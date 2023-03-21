@@ -16,7 +16,9 @@
         @livewireStyles
 
         <!-- Scripts -->
+        <script src="{{ mix('js/app.js') }}"></script>
         <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.3/dist/alpine.js" defer></script>
+
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
@@ -43,5 +45,6 @@
         @stack('modals')
 
         @livewireScripts
+        {{$js}}
     </body>
 </html>
