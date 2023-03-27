@@ -91,6 +91,8 @@ class QuizController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $quiz = Quiz::find($id) ?? abort(404,'Silinmek İstenen Sınav Mevcut Değil');
+        $quiz->delete();
+        return redirect()->route('quizzes.index')->withSuccess('Sınav Silme Başarılı');
     }
 }
