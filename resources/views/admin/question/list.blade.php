@@ -22,7 +22,7 @@
                   @foreach ($quiz->questions as $question)
                     <tr>
                         <td>{{$question->question}}</td>
-                        <td>{{$question->image}}</td>
+                        <td>@if($question->image) <a target="_blank" style="height:30px; padding-bottom:25px" class="btn btn-warning" href="{{asset($question->image)}}">Görsel</a> @endif</td>
                         <td>{{$question->answer1}}</td>
                         <td>{{$question->answer2}}</td>
                         <td>{{$question->answer3}}</td>
@@ -30,8 +30,8 @@
                         <td>{{$question->answer5}}</td>
                         <td class="text-success fw-bold text-center" >{{substr($question->correct_answer, -1). ".Şık "}}</td>
                         <td class="text-center">
-                            <a href="{{route('quizzes.edit',$question->id)}}" class="btn btn-sm btn-primary"><i class="fa fa-pen"></i></a>
-                            <a href="{{route('quizzes.destroy',$question->id)}}" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></a>
+                            <a href="{{route('questions.edit',[$quiz->id,$question->id])}}" class="btn btn-sm btn-primary"><i class="fa fa-pen"></i></a>
+                            <a href="{{route('questions.destroy',[$quiz->id,$question->id])}}" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></a>
                         </td>
                     </tr>
                     @endforeach
