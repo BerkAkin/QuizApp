@@ -14,7 +14,15 @@
                 <label class="fw-bold" for="description">Sınav Açıklaması</label>
                 <textarea name="description" class="form-control" rows="4">{{$quiz->description}}</textarea>
             </div>
-
+            <div class="form-group mt-3">
+                <label>Sınav Durumu</label><br>
+                <label>-Sınavı yayınlayabilmek için en az 5 soru eklemelisiniz-</label>
+                <select name="status" class="form-control">
+                    <option @if($quiz->questions_count<5) disabled @endif @if($quiz->status === 'published') selected @endif value="published">Aktif</option>
+                    <option @if($quiz->status === 'draft') selected @endif value="draft">Hazırlanıyor</option>
+                    <option @if($quiz->status === 'passive') selected @endif value="passive">Bitti</option>
+                </select>
+            </div>
             <div class="form-check mt-3">
                 <input class="form-check-input" @if($quiz->finished_at) checked @endif type="checkbox"  id="isFinished">
                 <label class="form-check-label" for="isFinished">Bitiş Tarihi Var Mı?</label>
