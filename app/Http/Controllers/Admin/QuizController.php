@@ -17,7 +17,7 @@ class QuizController extends Controller
      */
     public function index()
     {
-        $quizzes = Quiz::paginate(5);
+        $quizzes = Quiz::withCount('questions')->paginate(5);
         return view('admin.quiz.list', compact('quizzes'));
     }
 
@@ -43,7 +43,7 @@ class QuizController extends Controller
         //Veritabanındaki sütunlar ve html tarafındaki nameler aynı ise kalıtım alıp ayrı ayrı $ ile sütunları belirtmeye gerek yok
         //ancak model dosyanda protected $fillable=[] dizisi içinde alanlarını string tipinden yazman gerekiyor.
         Quiz::create($request->post());
-        return redirect()->route('quizzes.index')->withSuccess ('Sınav Başarıyla Oluşturuldu');
+        return redirect()->route('quizzes.index')->withSuccess('Sınav Başarıyla Oluşturuldu');
     }
 
     /**
@@ -65,7 +65,7 @@ class QuizController extends Controller
      */
     public function edit($id)
     {
-        $quiz = Quiz::find($id) ?? abort(404,'Böyle bir sınav mevcut değil');
+        $quiz = Quiz::find($id) ?? abort(404, 'Böyle bir sınav mevcut değil');
         return view('admin.quiz.edit', compact('quiz'));
     }
 
@@ -78,8 +78,8 @@ class QuizController extends Controller
      */
     public function update(QuizUpdateRequest $request, $id)
     {
-        $quiz = Quiz::find($id) ?? abort(404,'Güncellenecek böyle bir sınav mevcut değil');
-        Quiz::where('id',$id)->update($request->except(['_method','_token']));
+        $quiz = Quiz::find($id) ?? abort(404, 'Güncellenecek böyle bir sınav mevcut değil');
+        Quiz::where('id', $id)->update($request->except(['_method', '_token']));
         return redirect()->route('quizzes.index')->withSuccess('Sınav Güncelleme Başarılı');
     }
 
@@ -91,7 +91,7 @@ class QuizController extends Controller
      */
     public function destroy($id)
     {
-        $quiz = Quiz::find($id) ?? abort(404,'Silinmek İstenen Sınav Mevcut Değil');
+        $quiz = Quiz::find($id) ?? abort(404, 'Silinmek İstenen Sınav Mevcut Değil');
         $quiz->delete();
         return redirect()->route('quizzes.index')->withSuccess('Sınav Silme Başarılı');
     }
