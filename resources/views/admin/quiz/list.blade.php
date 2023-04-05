@@ -35,7 +35,7 @@
                                    
                            @endswitch
                         </td>
-                        <td>{{$quiz->finished_at}}</td>
+                        <td>{{$quiz->finished_at ? $quiz->finished_at->diffForHumans(): "Bitiş Tarihi Yok"}}</td>
                         <td>
                             <a href="{{route('questions.index',$quiz->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-add"></i></a>
                             <a href="{{route('quizzes.edit',$quiz->id)}}" class="btn btn-sm btn-primary"><i class="fa fa-pen"></i></a>
