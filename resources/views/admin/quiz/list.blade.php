@@ -10,6 +10,7 @@
                 <thead>
                   <tr>
                     <th scope="col">Sınav Adı</th>
+                    <th scope="col">Soru Miktarı</th>
                     <th scope="col">Durum</th>
                     <th scope="col">Bitiş Tarihi</th>
                     <th scope="col">İşlemler</th>
@@ -19,7 +20,21 @@
                     @foreach ($quizzes as $quiz)
                     <tr>
                         <td>{{$quiz->title}}</td>
-                        <td>{{$quiz->status}}</td>
+                        <td>{{$quiz->questions_count}}</td>
+                        <td>
+                           @switch($quiz->status)
+                               @case('published')
+                                  <span class="badge bg-success text-dark">Sınav Aktif</span>      
+                               @break
+                               @case('draft')
+                               <span class="badge bg-warning text-dark">Sınav Hazırlanıyor</span>
+                                   @break
+                               @case('passive')
+                               <span class="badge bg-danger text-dark">Sınav Bitti</span>
+                                   @break
+                                   
+                           @endswitch
+                        </td>
                         <td>{{$quiz->finished_at}}</td>
                         <td>
                             <a href="{{route('questions.index',$quiz->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-add"></i></a>
