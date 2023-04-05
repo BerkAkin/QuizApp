@@ -49,7 +49,7 @@ class QuestionController extends Controller
 
     public function show($quiz_id, $id)
     {
-        return $quiz_id . "- " . $id;
+        return "";
     }
 
 
@@ -81,8 +81,9 @@ class QuestionController extends Controller
 
 
 
-    public function destroy($id)
+    public function destroy($quiz_id, $question_id)
     {
-        //
+        Quiz::find($quiz_id)->questions()->whereId($question_id)->delete();
+        return redirect()->route('questions.index', $quiz_id)->withSuccess('Soru Silme Başarılı');
     }
 }
