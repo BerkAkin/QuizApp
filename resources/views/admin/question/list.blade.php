@@ -3,7 +3,8 @@
     <div class="card">
         <div class="card-body">
             <h5 class="card-title">
-                <a href="{{route('questions.create', $quiz->id)}}" class="btn btn-md btn-success"><i class="fa fa-plus"></i> Soru Oluştur</a>
+                <a href="{{route('questions.create', $quiz->id)}}" class="btn btn-md btn-success float-right"><i class="fa fa-plus"></i> Soru Yarat</a>
+                <a href="{{route('quizzes.index')}}" class="btn btn-md btn-dark float-left"><i class="fa fa-arrow-left me-1"></i>Sınavlara Dön</a>
             </h5>
             </div>
             <table class="table table-hover table-bordered table-sm">
