@@ -2,9 +2,22 @@
     <x-slot name="header">Sınavlar</x-slot>
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title">
+            <h5 class="card-title float-right">
                 <a href="{{route('quizzes.create')}}" class="btn btn-md btn-success"><i class="fa fa-plus"></i> Sınav Yarat</a>
             </h5>
+            <form>
+                <div class="row">
+                    <div class="col-md-3"><input type="text" name="title" class="form-control" placeholder="Sınav Adıyla Ara"></div>
+                    <div class="col-md-3">
+                        <select class="form-control" name="status">
+                            <option value="">Sınav Durumu Seçin</option>
+                            <option value="passive">Sınav Bitti</option>
+                            <option value="draft">Sınav Hazırlanıyor</option>
+                            <option value="publish">Sınav Aktif</option>
+                        </select>
+                    </div>
+                </div>
+            </form>
             </div>
             <table class="table table-hover table-bordered">
                 <thead>
