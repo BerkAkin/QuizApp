@@ -63,7 +63,7 @@
                     @endforeach
                 </tbody>
             </table>
-            <div class="m-2">{{$quizzes->withQueryString()->links()}}</div>
+            <div  class="m-2">{{$quizzes->withQueryString()->links()}}</div>
             
     </div>
 </x-app-layout>
