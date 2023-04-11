@@ -7,14 +7,17 @@
             </h5>
             <form method="GET" action="">
                 <div class="row">
-                    <div class="col-md-3"><input type="text" name="title" class="form-control" placeholder="Sınav Adıyla Ara"></div>
+                    <div class="col-md-3"><input type="text" name="title" class="form-control" placeholder="Sınav Adıyla Ara" value="{{request()->get('title')}}"></div>
                     <div class="col-md-3">
                         <select class="form-control" name="status" onchange="this.form.submit()">
                             <option value="">Sınav Durumu Seçin</option>
-                            <option value="passive">Sınav Bitti</option>
-                            <option value="draft">Sınav Hazırlanıyor</option>
-                            <option value="published">Sınav Aktif</option>
+                            <option @if(request()->get('status')=='passive') selected @endif  value="passive">Sınav Bitti</option>
+                            <option @if(request()->get('status')=='draft') selected @endif value="draft">Sınav Hazırlanıyor</option>
+                            <option @if(request()->get('status')=='published') selected @endif value="published">Sınav Aktif</option>
                         </select>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="{{route('quizzes.index')}}" class="btn btn-dark"> Filtreyi Temizle </a>
                     </div>
                 </div>
             </form>
