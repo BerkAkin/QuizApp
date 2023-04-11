@@ -5,15 +5,15 @@
             <h5 class="card-title float-right">
                 <a href="{{route('quizzes.create')}}" class="btn btn-md btn-success"><i class="fa fa-plus"></i> Sınav Yarat</a>
             </h5>
-            <form>
+            <form method="GET" action="">
                 <div class="row">
                     <div class="col-md-3"><input type="text" name="title" class="form-control" placeholder="Sınav Adıyla Ara"></div>
                     <div class="col-md-3">
-                        <select class="form-control" name="status">
+                        <select class="form-control" name="status" onchange="this.form.submit()">
                             <option value="">Sınav Durumu Seçin</option>
                             <option value="passive">Sınav Bitti</option>
                             <option value="draft">Sınav Hazırlanıyor</option>
-                            <option value="publish">Sınav Aktif</option>
+                            <option value="published">Sınav Aktif</option>
                         </select>
                     </div>
                 </div>
