@@ -20,10 +20,10 @@
                     <div class="col-md-3">
                         <a href="{{route('quizzes.index')}}" class="btn btn-dark"> Filtreyi Temizle </a>
                     </div>
-                    @endif
+                    @endif 
                 </div>
             </form>
-            </div>
+        </div>
             <table class="table table-hover table-bordered">
                 <thead>
                   <tr>
@@ -63,7 +63,8 @@
                     @endforeach
                 </tbody>
             </table>
-            {{$quizzes->links()}}
-        </div>
+            <div class="m-2">{{$quizzes->withQueryString()->links()}}</div>
+            
+    </div>
 </x-app-layout>
 
