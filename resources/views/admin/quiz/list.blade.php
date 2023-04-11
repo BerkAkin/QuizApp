@@ -16,9 +16,11 @@
                             <option @if(request()->get('status')=='published') selected @endif value="published">Sınav Aktif</option>
                         </select>
                     </div>
+                    @if(request()->get('title') ||request()->get('status'))
                     <div class="col-md-3">
                         <a href="{{route('quizzes.index')}}" class="btn btn-dark"> Filtreyi Temizle </a>
                     </div>
+                    @endif
                 </div>
             </form>
             </div>
