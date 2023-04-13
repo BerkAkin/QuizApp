@@ -46,7 +46,7 @@
                                @break
                                @case('draft')
                                <span class="badge bg-warning text-dark">Sınav Hazırlanıyor</span>
-                                   @break
+                                @break
                                @case('passive')
                                <span class="badge bg-danger text-dark">Sınav Bitti</span>
                                    @break
