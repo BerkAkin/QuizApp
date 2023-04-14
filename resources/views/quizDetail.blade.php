@@ -47,7 +47,7 @@
                         {{-- sağ kısım --}}
                         <div class="col-md-7"> {{$quiz->description}}
                             <div class="gap-2 d-grid mt-2">
-                                <a href="#" class="btn btn-success btn-block">Sınava Katıl</a>
+                                <a href="{{route('quiz.join',$quiz->slug)}}" class="btn btn-success btn-block">Sınava Katıl</a>
                             </div>
                         </div>
                     </div>
