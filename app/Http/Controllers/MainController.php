@@ -23,11 +23,11 @@ class MainController extends Controller
     {
         $quiz = Quiz::whereSlug($slug)->with('questions')->first();
         return view('quiz', compact('quiz'));
-}
+    }
 
-    public function result($slug)
+    public function result(Request $request, $slug)
     {
-        return $slug;
+        return $request->post();
     }
 
 
