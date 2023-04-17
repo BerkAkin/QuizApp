@@ -19,9 +19,6 @@ class Answers extends Migration
             $table->unsignedBigInteger('question_id');
             $table->enum('answer', ['answer1', 'answer2', 'answer3', 'answer4', 'answer5']);
 
-
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade');
         });
     }
 
