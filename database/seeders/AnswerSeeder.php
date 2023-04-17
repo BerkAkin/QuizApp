@@ -13,6 +13,6 @@ class AnswerSeeder extends Seeder
      */
     public function run()
     {
-        App\Models\Answer::factory(1000)->create();
+        \App\Models\Answer::factory(1000)->create();
     }
 }
