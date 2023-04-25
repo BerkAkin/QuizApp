@@ -17,7 +17,7 @@ class MainController extends Controller
 
     public function quizDetail($slug)
     {
-        $quiz = Quiz::whereSlug($slug)->withCount('questions')->first() ?? abort(404, 'Sınav Bulunamadı');
+         $quiz = Quiz::whereSlug($slug)->with('myResult', 'results')->withCount('questions')->first() ?? abort(404, 'Sınav Bulunamadı');
         return view('quizDetail', compact('quiz'));
     }
 
@@ -44,7 +44,7 @@ class MainController extends Controller
             }
         }
         $score = round((100 / count($quiz->questions)) * $correct);
-        $wrong =  count($quiz->questions) - $correct;
+        $wrong = count($quiz->questions) - $correct;
         Result::create([
             'user_id' => auth()->user()->id,
             'quiz_id' => $quiz->id,
@@ -54,7 +54,7 @@ class MainController extends Controller
 
         ]);
 
-        return redirect()->route('quiz.detail',$quiz->slug)->withSuccess('Sınav tamamlandı');
+        return redirect()->route('quiz.detail', $quiz->slug)->withSuccess('Sınav tamamlandı');
 
     }
 
