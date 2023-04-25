@@ -15,6 +15,18 @@ class Quiz extends Model
     protected $fillable = ['title', 'description', 'finished_at', 'status', 'slug'];
     protected $dates = ['finished_at'];
 
+
+
+    public function results()
+    {
+        return $this->hasMany('App\Models\Result');
+    }
+
+    public function myResult()
+    {
+        return $this->hasOne('App\Models\Result')->where('user_id', auth()->user()->id);
+    }
+
     public function getFinishedAtAttribute($date)
     {
         return $date ? Carbon::parse($date) : null;
