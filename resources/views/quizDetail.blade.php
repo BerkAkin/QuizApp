@@ -2,17 +2,23 @@
     <x-slot name="header">{{$quiz->title}}</x-slot>
     <div class="row">
 
-        <div class="col-md-6">
+        <div class="col-md-8">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
                     <p class="card-text">
                     <div class="row">
                         <div class="col-md-5">
-
-
                             {{-- sol kısım --}}
                             <ol class="list-group list-group-numbered">
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto">Puan</div>
+                                  <span title="" class="badge bg-warning rounded-pill">{{$quiz->myResult->score}}</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto">Doğru - Yanlış</div>
+                                  <span title="" class="badge bg-success rounded-pill">{{$quiz->myResult->correct}}</span>
+                                  <span title="" class="badge bg-danger rounded-pill ms-1"> {{$quiz->myResult->wrong}}</span>
+                                </li>
                                 @if($quiz->finished_at)
                                     <li class="list-group-item d-flex justify-content-between align-items-start">
                                         <div class="ms-2 me-auto">
@@ -45,11 +51,18 @@
 
 
                         {{-- sağ kısım --}}
-                        <div class="col-md-7"> {{$quiz->description}}
-                            <div class="gap-2 d-grid mt-2">
-                                <a href="{{route('quiz.join',$quiz->slug)}}" class="btn btn-success btn-block">Sınava Katıl</a>
-                            </div>
-                        </div>
+                        
+                      <div class="col-md-7"> {{$quiz->description}}
+                          @if(!$quiz->myResult)
+                              <div class="gap-2 d-grid mt-2">
+                                  <a href="{{route('quiz.join',$quiz->slug)}}" class="btn btn-success btn-block">Sınava Katıl</a>
+                              </div>
+                          @else
+                              <div class="gap-2 d-grid mt-2">
+                                <a class="btn btn-secondary btn-block disabled">Sınava Daha Önce Katıldınız</a>
+                              </div>
+                          @endif
+                      </div>
                     </div>
                 </p>
 
