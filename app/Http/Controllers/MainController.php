@@ -17,7 +17,7 @@ class MainController extends Controller
 
     public function quizDetail($slug)
     {
-         $quiz = Quiz::whereSlug($slug)->with('myResult', 'results')->withCount('questions')->first() ?? abort(404, 'Sınav Bulunamadı');
+         $quiz = Quiz::whereSlug($slug)->with('myResult', 'siralama.user')->withCount('questions')->first() ?? abort(404, 'Sınav Bulunamadı');
         return view('quizDetail', compact('quiz'));
     }
 
