@@ -7,7 +7,7 @@ use App\Http\Controllers\MainController;
 
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('login');
 });
 
 Route::group(['middleware' => 'auth'], function () {
