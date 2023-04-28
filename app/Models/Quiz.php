@@ -22,9 +22,22 @@ class Quiz extends Model
         return $this->hasMany('App\Models\Result');
     }
 
+
+    public function siralama()
+    {
+        return $this->results()->orderByDesc('score')->take(5);
+    }
+
     public function myResult()
     {
-        return $this->hasOne('App\Models\Result')->where('user_id', auth()->user()->id);
+        if ($this->hasOne('App\Models\Result')->where('user_id', auth()->user()->id)) 
+        {
+            return $this->hasOne('App\Models\Result')->where('user_id', auth()->user()->id);
+        } 
+        else 
+        {
+            return;
+        }
     }
 
     public function getFinishedAtAttribute($date)
