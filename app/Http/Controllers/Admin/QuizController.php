@@ -15,9 +15,13 @@ class QuizController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
+
     public function index()
     {
-        $quizzes = Quiz::withCount('questions');
+        //kullanıcıların yalnızca kendi sınavlarını görüntüleyebilmesi için
+        $quizzes = Quiz::withCount('questions')->where('sahip', '=', auth()->user()->id);
 
         if (request()->get('title')) {
             $quizzes = $quizzes->where('title', 'LIKE', "%" . request()->get('title') . "%");
@@ -38,7 +42,8 @@ class QuizController extends Controller
      */
     public function create()
     {
-        return view('admin.quiz.create');
+        $sahip = auth()->user()->id;
+        return view('admin.quiz.create', ['sahip' => $sahip]);
 
     }
 
@@ -52,8 +57,13 @@ class QuizController extends Controller
     {
         //Veritabanındaki sütunlar ve html tarafındaki nameler aynı ise kalıtım alıp ayrı ayrı $ ile sütunları belirtmeye gerek yok
         //ancak model dosyanda protected $fillable=[] dizisi içinde alanlarını string tipinden yazman gerekiyor.
-        Quiz::create($request->post());
-        return redirect()->route('quizzes.index')->withSuccess('Sınav Başarıyla Oluşturuldu');
+
+        if ($request->post('sahip') == auth()->user()->id) {
+            Quiz::create($request->post());
+            return redirect()->route('quizzes.index')->withSuccess('Sınav Başarıyla Oluşturuldu');
+        } else {
+            return redirect()->route('quizzes.index')->withErrors('Sınav Oluşturma Başarısız, lütfen kendi hesabınıza sınav oluşturun');
+        }
     }
 
     /**
