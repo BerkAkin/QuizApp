@@ -14,6 +14,13 @@
                 <textarea name="description" class="form-control" rows="4" >{{old('description')}}</textarea>
             </div>
 
+
+            <div class="form-group mt-3" style="display: none">
+                <label class="fw-bold" for="sahip">Sınavı Oluşturan</label>
+                <textarea name="sahip" class="form-control disabled" rows="4" >{{$sahip}}</textarea>
+            </div>
+
+
             <div class="form-check mt-3">
                 <input class="form-check-input" @if(old('finished_at'))checked @endif type="checkbox"  id="isFinished">
                 <label class="form-check-label" for="isFinished">Bitiş Tarihi Var Mı?</label>
@@ -26,6 +33,7 @@
             <div class="d-grid gap-2 mt-4">
                 <button type="submit" class="btn btn-success btn-sm fs-5">Sınav Yarat</button>
             </div>
+            
 
             </form>
         </div>

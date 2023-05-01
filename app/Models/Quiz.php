@@ -12,7 +12,7 @@ class Quiz extends Model
     use HasFactory;
     use Sluggable;
 
-    protected $fillable = ['title', 'description', 'finished_at', 'status', 'slug'];
+    protected $fillable = ['title', 'description', 'finished_at', 'status', 'slug', 'sahip'];
     protected $dates = ['finished_at'];
 
 
@@ -30,12 +30,9 @@ class Quiz extends Model
 
     public function myResult()
     {
-        if ($this->hasOne('App\Models\Result')->where('user_id', auth()->user()->id)) 
-        {
+        if ($this->hasOne('App\Models\Result')->where('user_id', auth()->user()->id)) {
             return $this->hasOne('App\Models\Result')->where('user_id', auth()->user()->id);
-        } 
-        else 
-        {
+        } else {
             return;
         }
     }
@@ -59,4 +56,6 @@ class Quiz extends Model
             ]
         ];
     }
+
+
 }
