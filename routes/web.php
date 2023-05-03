@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\QuestionController;
+use App\Http\Controllers\OgretmenController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\QuizController;
 use App\Http\Controllers\MainController;
@@ -15,6 +16,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('quiz/detay/{slug}', [MainController::class, 'quizDetail'])->name('quiz.detail');
     Route::get('quiz/{slug}', [MainController::class, 'quiz'])->name('quiz.join');
     Route::post('quiz/{slug}/result', [MainController::class, 'result'])->name('quiz.result');
+    Route::resource('ogretmen', OgretmenController::class);
+
 });
 
 
