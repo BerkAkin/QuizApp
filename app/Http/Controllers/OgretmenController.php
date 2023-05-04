@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\ogrenci;
 
 class OgretmenController extends Controller
 {
@@ -14,7 +15,7 @@ class OgretmenController extends Controller
      */
     public function index()
     {
-         $ogretmenler = User::all()->where('type', '=', 'admin');
+        $ogretmenler = User::all()->where('type', '=', 'admin');
         return view('ogretmenSecim', compact('ogretmenler'));
     }
 
@@ -23,6 +24,7 @@ class OgretmenController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function create()
     {
         //
@@ -36,7 +38,9 @@ class OgretmenController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        ogrenci::create($request->post());
+        return redirect()->route('dashboard')->withSuccess('Kayıt İsteği Öğretmen Onayına Başarıyla Sunuldu');
+
     }
 
     /**
