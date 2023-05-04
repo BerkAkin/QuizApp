@@ -42,10 +42,16 @@
                     <x-slot name="content">
                         @if(auth()->user()->type=='admin')
                             <div class="block px-4 py-2 text-xs text-gray-400">
-                                Admin
+                                Öğretmen
                             </div>
                             <x-jet-dropdown-link href="{{ route('quizzes.index') }}">
                                 Sınavlar
+                            </x-jet-dropdown-link>
+                            <x-jet-dropdown-link href="{{ route('ogrenciKabul.index') }}">
+                                Öğrenci Onayları
+                            </x-jet-dropdown-link>
+                            <x-jet-dropdown-link href="">
+                                Öğrenciler
                             </x-jet-dropdown-link>
                         @endif
 
