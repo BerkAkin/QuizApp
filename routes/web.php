@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\QuestionController;
 use App\Http\Controllers\OgrenciKabul;
 use App\Http\Controllers\OgretmenController;
+use App\Models\ogrenci;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\QuizController;
 use App\Http\Controllers\MainController;
@@ -28,6 +29,8 @@ Route::group(['middleware' => ['auth', 'isAdmin'], 'prefix' => 'admin'], functio
     Route::resource('quizzes', QuizController::class);
     Route::resource('quiz/{quiz_id}/questions', QuestionController::class);
     Route::resource('ogrenciKabul', OgrenciKabul::class);
+    Route::get('ogrenciKabul/{id}', [OgrenciKabul::class, 'destroy'])->name('ogrenciKabul.destroy');
+
 
 
 });
