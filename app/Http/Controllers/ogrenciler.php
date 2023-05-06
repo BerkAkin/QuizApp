@@ -71,7 +71,9 @@ class ogrenciler extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        User::where('id', '=', $id)->update(['ogretmen_id' => null]);
+        return redirect()->route('ogrenciler.index')->withSuccess('Öğrenci Silme Başarılı');
+
     }
 
     /**
@@ -82,6 +84,6 @@ class ogrenciler extends Controller
      */
     public function destroy($id)
     {
-        //
+
     }
 }
