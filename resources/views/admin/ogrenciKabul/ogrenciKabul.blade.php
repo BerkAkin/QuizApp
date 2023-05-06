@@ -7,6 +7,7 @@
             <table class="table table-hover table-bordered">
                 <thead>
                   <tr>
+                    <th scope="col">Öğrenci Fotoğraf</th>
                     <th scope="col">Öğrenci Ad</th>
                     <th scope="col">Öğrenci Mail</th>
                     <th scope="col">İşlemler</th>
@@ -16,6 +17,7 @@
                 <tbody>
                     @foreach ($onaylar as $item)
                     <tr>
+                        <td>{{$item->profile_photo_path}}</td>
                         <td>{{$item->name}}</td>
                         <td>{{$item->email}}</td>
                         <td class="d-flex justify-content-evenly">
