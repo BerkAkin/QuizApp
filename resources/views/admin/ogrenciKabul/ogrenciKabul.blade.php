@@ -9,8 +9,6 @@
                   <tr>
                     <th scope="col">Öğrenci Ad</th>
                     <th scope="col">Öğrenci Mail</th>
-                    <th scope="col">ID</th>
-                    <th scope="col">Öğrenci ID</th>
                     <th scope="col">İşlemler</th>
 
                   </tr>
@@ -20,17 +18,15 @@
                     <tr>
                         <td>{{$item->name}}</td>
                         <td>{{$item->email}}</td>
-                        <td>{{$item->id}}</td>
-                        <td>{{$item->ogrenci_id}}</td>
                         <td class="d-flex justify-content-evenly">
                             <form action="{{route('ogrenciKabul.destroy',$item->id)}}" method="POST">
                                 @csrf 
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger"><i class="fa fa-times"></i></button>
                             </form>
-                            <form action="{{route('ogrenciKabul.update',$item->id)}}" method="POST">
+                            <form action="{{route('ogrenciKabul.update',$item->ogrenci_id)}}" method="POST">
                                 @csrf 
-                                @method('UPDATE')
+                                @method('PUT')
                                 <button type="submit" class="btn btn-success"><i class="fa fa-check"></i></button>
                             </form>
                         </td>
