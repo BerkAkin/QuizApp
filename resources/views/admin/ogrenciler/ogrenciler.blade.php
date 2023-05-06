@@ -16,10 +16,20 @@
                 <tbody>
                     @foreach ($ogrencilerim as $item)
                     <tr>
-                        <td>{{$item->profile_photo_path}}</td>
+                        <td>
+                            @if($item->profile_photo_path)
+                                <img  class="card-img-top w-25" src="{{asset('storage/')}}/{{$item->profile_photo_path}}">
+                            @endif
+                        </td>
                         <td>{{$item->name}}</td>
                         <td>{{$item->email}}</td>
-                        <td></td>
+                        <td>
+                            <form action="{{route('ogrenciler.update',$item->id)}}" method="POST">
+                                @csrf 
+                                @method('PATCH')
+                                <button type="submit" class="btn btn-dark btn-block w-100"><i class="fa fa-times me-2"></i>Sil</button>
+                            </form>
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>
