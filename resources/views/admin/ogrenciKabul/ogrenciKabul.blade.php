@@ -17,9 +17,13 @@
                 <tbody>
                     @foreach ($onaylar as $item)
                     <tr>
-                        <td>{{$item->profile_photo_path}}</td>
-                        <td>{{$item->name}}</td>
-                        <td>{{$item->email}}</td>
+                        <td>
+                            @if($item->profile_photo_path)
+                                <img class="card-img-top w-25" src="{{asset('storage/')}}/{{$item->profile_photo_path}}">
+                            @endif
+                        </td>
+                        <td class="my-auto">{{$item->name}}</td>
+                        <td class="my-auto">{{$item->email}}</td>
                         <td class="d-flex justify-content-evenly">
                             <form action="{{route('ogrenciKabul.destroy',$item->id)}}" method="POST">
                                 @csrf 
