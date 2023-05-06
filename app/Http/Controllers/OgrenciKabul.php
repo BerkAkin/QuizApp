@@ -74,7 +74,11 @@ class OgrenciKabul extends Controller
      */
     public function update(Request $request, $id)
     {
-        User::where('id', $id)->update(['ogretmen_id' => auth()->user()->id]);
+        $ogretmen_id = auth()->user()->id;
+        User::where('id', '=', $id)->update(['ogretmen_id' => $ogretmen_id]);
+        $this->destroy($id);
+        return redirect()->route('ogrenciKabul.index')->withSuccess('Öğrenci Kabul Edildi');
+
     }
 
     /**
@@ -87,6 +91,7 @@ class OgrenciKabul extends Controller
     {
         $ogrenci = ogrenci::find($id);
         $ogrenci->delete();
+        return redirect()->route('ogrenciKabul.index')->withErrors('Öğrenci Reddedildi');
     }
 
 }
