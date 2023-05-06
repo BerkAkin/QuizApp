@@ -44,13 +44,16 @@
                             <div class="block px-4 py-2 text-xs text-gray-400">
                                 Öğretmen
                             </div>
+                            
                             <x-jet-dropdown-link href="{{ route('quizzes.index') }}">
                                 Sınavlar
                             </x-jet-dropdown-link>
+
                             <x-jet-dropdown-link href="{{ route('ogrenciKabul.index') }}">
-                                Öğrenci Onayları
+                                Öğrenci İşlemleri
                             </x-jet-dropdown-link>
-                            <x-jet-dropdown-link href="">
+
+                            <x-jet-dropdown-link href="{{ route('ogrenciler.index') }}">
                                 Öğrenciler
                             </x-jet-dropdown-link>
                         @endif
@@ -59,7 +62,7 @@
 
                         @if(auth()->user()->type!='admin')
                             <div class="block px-4 py-2 text-xs text-gray-400">
-                                Öğretmen Seçimi
+                                Öğretmen Seçenekleri
                             </div>
                             <x-jet-dropdown-link href="{{route('ogretmen.index')}}">
                                 Öğretmenler

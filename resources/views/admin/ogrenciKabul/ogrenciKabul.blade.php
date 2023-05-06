@@ -7,10 +7,9 @@
             <table class="table table-hover table-bordered">
                 <thead>
                   <tr>
+                    <th scope="col">Öğrenci Fotoğraf</th>
                     <th scope="col">Öğrenci Ad</th>
                     <th scope="col">Öğrenci Mail</th>
-                    <th scope="col">ID</th>
-                    <th scope="col">Öğrenci ID</th>
                     <th scope="col">İşlemler</th>
 
                   </tr>
@@ -18,19 +17,22 @@
                 <tbody>
                     @foreach ($onaylar as $item)
                     <tr>
-                        <td>{{$item->name}}</td>
-                        <td>{{$item->email}}</td>
-                        <td>{{$item->id}}</td>
-                        <td>{{$item->ogrenci_id}}</td>
+                        <td>
+                            @if($item->profile_photo_path)
+                                <img class="card-img-top w-25" src="{{asset('storage/')}}/{{$item->profile_photo_path}}">
+                            @endif
+                        </td>
+                        <td class="my-auto">{{$item->name}}</td>
+                        <td class="my-auto">{{$item->email}}</td>
                         <td class="d-flex justify-content-evenly">
                             <form action="{{route('ogrenciKabul.destroy',$item->id)}}" method="POST">
                                 @csrf 
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger"><i class="fa fa-times"></i></button>
                             </form>
-                            <form action="{{route('ogrenciKabul.update',$item->id)}}" method="POST">
+                            <form action="{{route('ogrenciKabul.update',$item->ogrenci_id)}}" method="POST">
                                 @csrf 
-                                @method('UPDATE')
+                                @method('PUT')
                                 <button type="submit" class="btn btn-success"><i class="fa fa-check"></i></button>
                             </form>
                         </td>

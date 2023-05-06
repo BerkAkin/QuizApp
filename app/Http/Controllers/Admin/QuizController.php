@@ -98,7 +98,6 @@ class QuizController extends Controller
      */
     public function update(QuizUpdateRequest $request, $id)
     {
-        $quiz = Quiz::find($id) ?? abort(404, 'Güncellenecek böyle bir sınav mevcut değil');
         Quiz::find($id)->update($request->except(['_method', '_token']));
         return redirect()->route('quizzes.index')->withSuccess('Sınav Güncelleme Başarılı');
     }

@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\ogrenci;
 use App\Models\User;
-use Illuminate\Support\Facades\DB;
 
-class OgrenciKabul extends Controller
+class ogrenciler extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,10 +14,9 @@ class OgrenciKabul extends Controller
      */
     public function index()
     {
-        $onaylar = DB::table('users')->join('ogrencis', function ($join) {
-            $join->on('users.id', '=', 'ogrencis.ogrenci_id')->where('ogrencis.ogretmen_id', '=', auth()->user()->id);
-        })->get();
-        return view('admin.ogrenciKabul.ogrenciKabul', compact('onaylar'));
+        $ogretmen = auth()->user()->id;
+        $ogrencilerim = User::where('ogretmen_id', '=', $ogretmen)->get();
+        return view('admin.ogrenciler.ogrenciler', compact('ogrencilerim'));
     }
 
     /**
@@ -74,11 +71,8 @@ class OgrenciKabul extends Controller
      */
     public function update(Request $request, $id)
     {
-        $ogretmen_id = auth()->user()->id;
-        User::where('id', '=', $id)->update(['ogretmen_id' => $ogretmen_id]);
-        $ogrenciNo = ogrenci::where('ogrenci_id', '=', $id)->first()->get();
-        $this->sil($ogrenciNo->first()->id);
-        return redirect()->route('ogrenciKabul.index')->withSuccess('Öğrenci Kabul Edildi');
+        User::where('id', '=', $id)->update(['ogretmen_id' => null]);
+        return redirect()->route('ogrenciler.index')->withSuccess('Öğrenci Silme Başarılı');
 
     }
 
@@ -90,16 +84,6 @@ class OgrenciKabul extends Controller
      */
     public function destroy($id)
     {
-        $ogrenci = ogrenci::find($id);
-        $ogrenci->delete();
-        return redirect()->route('ogrenciKabul.index')->withErrors('Öğrenci Reddedildi');
+
     }
-
-
-    public function sil($id)
-    {
-        $ogrenci = ogrenci::find($id);
-        $ogrenci->delete();
-    }
-
 }
