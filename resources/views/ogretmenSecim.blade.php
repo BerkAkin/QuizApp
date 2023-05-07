@@ -35,7 +35,7 @@
                 <button id="onaybuton" style="display: none" type="submit" class="btn btn-sm btn-dark float-right shadow-none">Seçimi Kaydet</button>
                 <div class="form-check mt-1">
                     <input class="form-check-input bg-dark border-1 border-dark" style="box-shadow:none !important; transform:scale(1.2)" type="checkbox" id="ogrDegisimIstek">
-                    <label class="form-check-label text-sm fw-bold" for="flexCheckDefault" >Öğretmen Değiştirmek İstiyorum</label>
+                    <label class="form-check-label text-sm fw-bold" for="flexCheckDefault" >Öğretmen Seçmek/Değiştirmek İstiyorum</label>
                 </div>
         </div>
     </div>
