@@ -1,5 +1,5 @@
 <x-app-layout>
-    <x-slot name="header">Anasayfa</x-slot>
+    <x-slot name="header">Sınavlar</x-slot>
 
 <div class="row">
     <div class="col-md-12">
