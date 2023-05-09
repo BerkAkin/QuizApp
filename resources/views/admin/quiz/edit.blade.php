@@ -15,8 +15,7 @@
                 <textarea name="description" class="form-control" rows="4">{{$quiz->description}}</textarea>
             </div>
             <div class="form-group mt-3">
-                <label>Sınav Durumu</label><br>
-                <label>-Sınavı yayınlayabilmek için en az 5 soru eklemelisiniz-</label>
+                <label>Sınav Durumu <span class="fw-bold text-danger">(Sınavı yayınlayabilmek için en az 5 soru eklemelisiniz)</span></label><br>
                 <select name="status" class="form-control">
                     <option @if($quiz->questions_count<5) disabled @endif @if($quiz->status === 'published') selected @endif value="published">Aktif</option>
                     <option @if($quiz->status === 'draft') selected @endif value="draft">Hazırlanıyor</option>
@@ -31,6 +30,22 @@
                 <label class="fw-bold" for="finished_at">Bitiş Tarihi</label>
                 <input type="datetime-local" name="finished_at" class="form-control" value="{{$quiz->finished_at}}">
             </div>
+
+            <div class="form-group mt-3">
+                <label class="fw-bold" for="counter">Sınav Süresi</label>
+                <input name="counter" class="form-control" rows="4" value={{$quiz->counter}}>
+            </div>
+
+            <div class="form-group mt-3">
+                <label class="fw-bold" for="kisi_sayisi">Sınava Katılacak Kişi Sayısı</label>
+                <input name="kisi_sayisi" class="form-control" rows="4" value={{$quiz->kisi_sayisi}}>
+            </div>
+
+            <div class="form-group mt-3">
+                <label class="fw-bold" for="gereken_min_not">Alınması Gereken Minimum Not</label>
+                <input name="gereken_min_not" class="form-control" rows="4" value={{$quiz->gereken_min_not}}>
+            </div>
+
 
             <div class="d-grid gap-2 mt-4">
                 <button type="submit" class="btn btn-success btn-sm fs-5">Sınavı Güncelle</button>
