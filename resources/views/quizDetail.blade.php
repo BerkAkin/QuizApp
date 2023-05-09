@@ -84,6 +84,9 @@
                       </div>
                       <div class="mt-2">
                           @if(date("Y-m-d H:i:s")>$quiz->finished_at)
+                          <div class="gap-2 d-grid mt-2">
+                            <a class="btn btn-danger btn-block disabled">Sınava Süresi Doldu</a>
+                          </div>
                           @else
                           @if(!$quiz->myResult)
                                 <div class="gap-2 d-grid mt-2">
