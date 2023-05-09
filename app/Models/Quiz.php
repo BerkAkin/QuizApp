@@ -25,7 +25,7 @@ class Quiz extends Model
 
     public function siralama()
     {
-        return $this->results()->orderByDesc('score')->take(5);
+        return $this->results()->orderByDesc('score')->take(4);
     }
 
     public function myResult()
