@@ -13,7 +13,7 @@
                       <div class="col-md-4">
                         <div class="card">
                           <div class="card-body">
-                            <h5 class="card-title text-center">En Yüksek Not Alan 5 Kişi</h5>
+                            <h5 class="card-title text-center">En Yüksek Not Alan 4 Kişi</h5>
                             <ul class="list-group">
                               @foreach($quiz->siralama as $item)
                                 <li class="list-group-item"><strong class="text-muted">{{$loop->iteration}}.</strong> {{$item->user->name}}</li>
@@ -30,9 +30,9 @@
                             {{-- sol kısım --}}
                             <ol class="list-group list-group">
                                 <li class="list-group-item d-flex justify-content-between align-items-start">
-                                  <div class="ms-2 me-auto">Puan</div>
+                                  <div class="ms-2 me-auto">Not</div>
                                   @if($quiz->myResult)
-                                          <span title="" class="badge bg-warning rounded-pill">
+                                          <span title="" class="badge bg-info rounded-pill">
                                           {{$quiz->myResult->score}} 
                                         </span>
                                       </li>
@@ -44,10 +44,8 @@
                                       @endif
                                       @if($quiz->finished_at)
                                           <li class="list-group-item d-flex justify-content-between align-items-start">
-                                              <div class="ms-2 me-auto">
-                                              Bitiş
-                                              </div>
-                                              <span title="{{$quiz->finished_at}}" class="badge bg-dark rounded-pill">{{$quiz->finished_at->diffForHumans()}}</span>
+                                              <div class="ms-2 me-auto">Bitiş</div>
+                                              <span title="{{$quiz->finished_at}}" class="badge bg-danger rounded-pill">{{$quiz->finished_at->diffForHumans()}}</span>
                                           </li>
                                     @endif
                                 <li class="list-group-item d-flex justify-content-between align-items-start">
@@ -58,41 +56,49 @@
                                   </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-start">
                                   <div class="ms-2 me-auto">
-                                    Girecek Öğrenci
+                                    Girecek Öğrenci Sayısı
                                   </div>
-                                  <span class="badge bg-dark rounded-pill">120</span>
+                                  <span class="badge bg-dark rounded-pill">{{$quiz->kisi_sayisi}} Kişi</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-start">
                                   <div class="ms-2 me-auto">
-                                    Alınması Gereken Min Not
+                                    Alınması Gereken Minimum Not
                                   </div>
-                                  <span class="badge bg-dark rounded-pill">60</span>
+                                  <span class="badge bg-dark rounded-pill">{{$quiz->gereken_min_not}}</span>
+                                </li>                                
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                  <div class="ms-2 me-auto">
+                                    Sınav Süresi
+                                  </div>
+                                  <span style="background-color: rgb(255, 187, 0)" class="badge text-dark rounded-pill">{{$quiz->counter}} Dakika</span>
                                 </li>
                               </ol>
                         </div>
-
-
-
-
-
-
                         {{-- sağ kısım --}}
                         
-                      <div class="col-md-4"> {{$quiz->description}}
-                          @if(!$quiz->myResult)
-                              <div class="gap-2 d-grid mt-2">
-                                  <a href="{{route('quiz.join',$quiz->slug)}}" class="btn btn-success btn-block">Sınava Katıl</a>
-                              </div>
+                      <div class="col-md-4 card"> 
+                        <div class="card-body">
+                          <h5 class="text-center">Sınav Açıklaması</h5>
+                          <p class="card-title">{{$quiz->description}}</p>                        
+                        </div>
+                      </div>
+                      <div class="mt-2">
+                          @if(date("Y-m-d H:i:s")>$quiz->finished_at)
+                          <div class="gap-2 d-grid mt-2">
+                            <a class="btn btn-danger btn-block disabled">Sınava Süresi Doldu</a>
+                          </div>
                           @else
-                              <div class="gap-2 d-grid mt-2">
-                                <a class="btn btn-secondary btn-block disabled">Sınava Daha Önce Katıldınız</a>
-                              </div>
+                          @if(!$quiz->myResult)
+                                <div class="gap-2 d-grid mt-2">
+                                    <a href="{{route('quiz.join',$quiz->slug)}}" class="btn btn-success btn-block">Sınava Katıl</a>
+                                </div>
+                            @else
+                                <div class="gap-2 d-grid mt-2">
+                                  <a class="btn btn-secondary btn-block disabled">Sınava Daha Önce Katıldınız</a>
+                                </div>
+                            @endif
                           @endif
                       </div>
-
-
-
-
 
 
                     </div>

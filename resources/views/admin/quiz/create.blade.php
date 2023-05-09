@@ -30,6 +30,21 @@
                 <input type="datetime-local" name="finished_at" class="form-control" value="{{old('finished_at')}}">
             </div>
 
+            <div class="form-group mt-3">
+                <label class="fw-bold" for="counter">Sınav Süresi</label>
+                <input name="counter" class="form-control" rows="4" value={{old('counter')}}>
+            </div>
+
+            <div class="form-group mt-3">
+                <label class="fw-bold" for="kisi_sayisi">Sınava Katılacak Kişi Sayısı</label>
+                <input name="kisi_sayisi" class="form-control" rows="4" value={{old('kisi_sayisi')}}>
+            </div>
+
+            <div class="form-group mt-3">
+                <label class="fw-bold" for="gereken_min_not">Alınması Gereken Minimum Not</label>
+                <input name="gereken_min_not" class="form-control" rows="4" value={{old('gereken_min_not')}}>
+            </div>
+
             <div class="d-grid gap-2 mt-4">
                 <button type="submit" class="btn btn-success btn-sm fs-5">Sınav Yarat</button>
             </div>
