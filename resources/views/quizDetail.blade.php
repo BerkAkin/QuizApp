@@ -13,7 +13,7 @@
                       <div class="col-md-4">
                         <div class="card">
                           <div class="card-body">
-                            <h5 class="card-title text-center">En Yüksek Not Alan 5 Kişi</h5>
+                            <h5 class="card-title text-center">En Yüksek Not Alan 4 Kişi</h5>
                             <ul class="list-group">
                               @foreach($quiz->siralama as $item)
                                 <li class="list-group-item"><strong class="text-muted">{{$loop->iteration}}.</strong> {{$item->user->name}}</li>
@@ -76,19 +76,25 @@
                         </div>
                         {{-- sağ kısım --}}
                         
-                      <div class="col-md-4"> {{$quiz->description}}
-                        @if(date("Y-m-d H:i:s")>$quiz->finished_at)
-                        @else
-                        @if(!$quiz->myResult)
-                              <div class="gap-2 d-grid mt-2">
-                                  <a href="{{route('quiz.join',$quiz->slug)}}" class="btn btn-success btn-block">Sınava Katıl</a>
-                              </div>
+                      <div class="col-md-4 card"> 
+                        <div class="card-body">
+                          <h5 class="text-center">Sınav Açıklaması</h5>
+                          <p class="card-title">{{$quiz->description}}</p>                        
+                        </div>
+                      </div>
+                      <div class="mt-2">
+                          @if(date("Y-m-d H:i:s")>$quiz->finished_at)
                           @else
-                              <div class="gap-2 d-grid mt-2">
-                                <a class="btn btn-secondary btn-block disabled">Sınava Daha Önce Katıldınız</a>
-                              </div>
+                          @if(!$quiz->myResult)
+                                <div class="gap-2 d-grid mt-2">
+                                    <a href="{{route('quiz.join',$quiz->slug)}}" class="btn btn-success btn-block">Sınava Katıl</a>
+                                </div>
+                            @else
+                                <div class="gap-2 d-grid mt-2">
+                                  <a class="btn btn-secondary btn-block disabled">Sınava Daha Önce Katıldınız</a>
+                                </div>
+                            @endif
                           @endif
-                        @endif
                       </div>
 
 
