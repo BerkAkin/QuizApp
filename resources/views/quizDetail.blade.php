@@ -14,6 +14,7 @@
                         <div class="card">
                           <div class="card-body">
                             <h5 class="card-title text-center">En Yüksek Not Alan 4 Kişi</h5>
+                            <hr>
                             <ul class="list-group">
                               @foreach($quiz->siralama as $item)
                                 <li class="list-group-item"><strong class="text-muted">{{$loop->iteration}}.</strong> {{$item->user->name}}</li>
@@ -79,6 +80,7 @@
                       <div class="col-md-4 card"> 
                         <div class="card-body">
                           <h5 class="text-center">Sınav Açıklaması</h5>
+                          <hr>
                           <p class="card-title">{{$quiz->description}}</p>                        
                         </div>
                       </div>
@@ -99,7 +101,6 @@
                             @endif
                           @endif
                       </div>
-
 
                     </div>
                 </div>
