@@ -19,14 +19,17 @@ class OgrenciNotlar extends Controller
     {
         $notlar = DB::table('results')
             ->join('users', function ($join) {
-                $join->on('results.user_id', '=', 'users.id')->where('users.type', '=', 'user')->where('users.ogretmen_id', '=', auth()->user()->id);
+                $join->on('results.user_id', '=', 'users.id')->where('users.type', '=', 'user');
             })
             ->join('quizzes', function ($join) {
-                $join->on('quizzes.id', '=', 'results.quiz_id');
+                $join->on('quizzes.id', '=', 'results.quiz_id')->where('quizzes.sahip', '=', auth()->user()->id);
             })
             ->get(['name', 'title', 'score', 'email', 'profile_photo_path', 'correct', 'wrong', 'gereken_min_not']);
-        return view('admin.ogrenciNot.ogrenciNot', compact('notlar'));
-        return $notlar;
+
+        $sinavlar = Quiz::where('sahip', '=', auth()->user()->id)->get(['id', 'title']);
+        return view('admin.ogrenciNot.ogrenciNot', compact(['notlar', 'sinavlar']));
+
+
     }
 
     /**
