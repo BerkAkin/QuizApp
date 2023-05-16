@@ -7,7 +7,7 @@
                 <a href="{{route('quizzes.index')}}" class="btn btn-md btn-dark float-left"><i class="fa fa-arrow-left me-1"></i>Sınavlara Dön</a>
             </h5>
             </div>
-            <table class="table table-hover table-bordered table-sm">
+            <table style="width:98%" class="mx-auto table table-hover table-bordered table-sm">
                 <thead>
                   <tr>
                     <th class="text-center" scope="col">Soru</th>
