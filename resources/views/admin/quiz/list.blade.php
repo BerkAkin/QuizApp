@@ -24,7 +24,7 @@
                 </div>
             </form>
         </div>
-            <table class="table table-hover table-bordered">
+            <table style="width:98%" class="mx-auto table table-hover table-bordered">
                 <thead>
                   <tr>
                     <th class="text-center" scope="col">Sınav Adı</th>
@@ -56,7 +56,7 @@
                                    
                            @endswitch
                         </td>
-                        <td class="text-center">{{$quiz->counter}}</td>
+                        <td class="text-center">{{$quiz->counter}} dk</td>
                         <td class="text-center">{{$quiz->kisi_sayisi}}</td>
                         <td class="text-center text-primary">{{$quiz->gereken_min_not}}</td>
                         <td class="text-center">{{$quiz->finished_at ? $quiz->finished_at->diffForHumans(): "Bitiş Tarihi Yok"}}</td>
