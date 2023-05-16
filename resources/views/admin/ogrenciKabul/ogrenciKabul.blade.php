@@ -4,7 +4,7 @@
     <div class="card">
         <div class="card-body">
         </div>
-            <table class="table table-hover table-bordered">
+            <table style="width:98%" class="mx-auto table table-hover table-bordered">
                 <thead>
                   <tr>
                     <th scope="col">Öğrenci Fotoğraf</th>
