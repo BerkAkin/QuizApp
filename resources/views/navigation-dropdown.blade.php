@@ -58,6 +58,10 @@
                             <x-jet-dropdown-link href="{{ route('ogrenciler.index') }}">
                                 Öğrenciler
                             </x-jet-dropdown-link>
+
+                            <x-jet-dropdown-link href="{{ route('notlar.index') }}">
+                                Notlar
+                            </x-jet-dropdown-link>
                         @endif
 
 

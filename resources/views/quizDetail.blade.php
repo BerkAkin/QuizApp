@@ -65,14 +65,14 @@
                                   <div class="ms-2 me-auto">
                                     Alınması Gereken Minimum Not
                                   </div>
-                                  <span class="badge bg-dark rounded-pill">{{$quiz->gereken_min_not}}</span>
+                                  <span class="badge bg-warning text-dark rounded-pill">{{$quiz->gereken_min_not}}</span>
                                 </li>                                
-                                <li class="list-group-item d-flex justify-content-between align-items-start">
+{{--                                 <li class="list-group-item d-flex justify-content-between align-items-start">
                                   <div class="ms-2 me-auto">
                                     Sınav Süresi
                                   </div>
                                   <span style="background-color: rgb(255, 187, 0)" class="badge text-dark rounded-pill">{{$quiz->counter}} Dakika</span>
-                                </li>
+                                </li> --}}
                               </ol>
                         </div>
                         {{-- sağ kısım --}}
