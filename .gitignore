@@ -9,4 +9,4 @@ yarn-error.log
 *.jpg
 *.jpeg
 *.png
-.env
+*.webp
