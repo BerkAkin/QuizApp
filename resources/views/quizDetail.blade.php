@@ -85,20 +85,32 @@
                         </div>
                       </div>
                       <div class="mt-2">
-                          @if(date("Y-m-d H:i:s")>$quiz->finished_at)
-                          <div class="gap-2 d-grid mt-2">
-                            <a class="btn btn-danger btn-block disabled">Sınava Süresi Doldu</a>
-                          </div>
+                          @if($quiz->finished_at==null)
+                              @if(!$quiz->myResult)
+                                    <div class="gap-2 d-grid mt-2">
+                                        <a href="{{route('quiz.join',$quiz->slug)}}" class="btn btn-success btn-block">Sınava Katıl</a>
+                                    </div>
+                              @else
+                                    <div class="gap-2 d-grid mt-2">
+                                      <a class="btn btn-secondary btn-block disabled">Sınava Daha Önce Katıldınız</a>
+                                    </div>
+                              @endif
                           @else
-                          @if(!$quiz->myResult)
+                              @if(date("Y-m-d H:i:s")>$quiz->finished_at)
                                 <div class="gap-2 d-grid mt-2">
-                                    <a href="{{route('quiz.join',$quiz->slug)}}" class="btn btn-success btn-block">Sınava Katıl</a>
+                                  <a class="btn btn-danger btn-block disabled">Sınav Süresi Doldu</a>
                                 </div>
-                            @else
-                                <div class="gap-2 d-grid mt-2">
-                                  <a class="btn btn-secondary btn-block disabled">Sınava Daha Önce Katıldınız</a>
-                                </div>
-                            @endif
+                              @else
+                                @if(!$quiz->myResult)
+                                  <div class="gap-2 d-grid mt-2">
+                                      <a href="{{route('quiz.join',$quiz->slug)}}" class="btn btn-success btn-block">Sınava Katıl</a>
+                                  </div>
+                                @else
+                                  <div class="gap-2 d-grid mt-2">
+                                    <a class="btn btn-secondary btn-block disabled">Sınava Daha Önce Katıldınız</a>
+                                  </div>
+                                @endif
+                              @endif
                           @endif
                       </div>
 
