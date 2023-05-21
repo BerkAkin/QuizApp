@@ -32,8 +32,7 @@ class MainController extends Controller
     {
 
         $quiz = Quiz::with('questions')->whereSlug($slug)->first() ?? abort(404, 'Sınav Mevcut Değil');
-
-        if (date("Y-m-d H:i:s") < $quiz->finished_at) {
+        if ((date("Y-m-d H:i:s") < $quiz->finished_at || $quiz->finished_at == null) && !Result::where('user_id', '=', auth()->user()->id)->value('user_id')) {
             $correct = 0;
             foreach ($quiz->questions as $question) {
                 /*  echo $question->id . '-' . $question->correct_answer . '/' . $request->post($question->id) . '<br>'; */
@@ -60,7 +59,7 @@ class MainController extends Controller
 
             return redirect()->route('quiz.detail', $quiz->slug)->withSuccess('Sınav tamamlandı');
         } else {
-            return redirect()->route('quiz.detail', $quiz->slug)->withErrors('Sınav süresi dolduğu için sonuçlar kaydedilmedi');
+            return redirect()->route('quiz.detail', $quiz->slug)->withErrors('Sınav süresi dolduğu veya daha önce katılım sağlandığı için sonuçlar kaydedilmedi');
         }
     }
 
