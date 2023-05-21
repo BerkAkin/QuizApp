@@ -1,12 +1,30 @@
 <x-app-layout>
+    
     <x-slot name="header">{{$quiz->title}}</x-slot>
+<style>
+#sayac {
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  z-index: 99;
+  font-size: 1em;
+  outline: none;
+  background-color: rgb(47, 128, 0);
+  color: white;
+  padding: 5px;
+  border-radius: 4px;
+}
+</style>
 
+    <div id="sayac"></div>
+
+            <p id="suankiTarih" class="d-none">{{$quiz->finished_at}}</p>
             <div class="card">
                 <div class="card-body">
                         <form method="POST" action="{{route('quiz.result',$quiz->slug)}}">
                             @csrf
                             @foreach($quiz->questions as $question)
-                                <span class="text-dark fw-bold ">Soru {{$loop->iteration}} </span>
+                                <span class="fw-bold" style="color:rgb(3, 101, 180)">Soru {{$loop->iteration}} </span>
                                 @if($question->image)
                                     <img src="{{asset($question->image)}}" class="img-responsive" width="25%">
                                 @endif
@@ -52,4 +70,44 @@
             </div>
 
 
+
+            <x-slot name="js">
+                <script>
+                    
+                    let tarih = document.querySelector(`#suankiTarih`);
+                    var now = new Date(tarih.innerHTML);
+
+                    function fark(dt2, dt1) 
+                    {
+                        var frk =(dt2.getTime() - dt1.getTime()) / 1000;
+                        frk /= 60;
+                        return Math.abs(Math.round(frk));
+                    }
+                    
+                    var now2 = new Date();
+
+                    const element = document.getElementById("sayac");
+                    if(now>now2)
+                    {
+                        var sayac = setInterval(function() {
+                            var now2 = new Date();
+                            element.innerHTML = fark(now,now2) + " Dakika Kaldı"
+                            if (fark(now,now2) <= 10) {
+                                element.innerHTML = fark(now,now2) + " Dakika Kaldı"
+                                element.style.backgroundColor="orange";
+                                element.style.color="black";
+                                clearInterval(sayac);
+                            } 
+                            if (fark(now,now2) <= 0) {
+                                element.innerHTML = " Süre Bitti";
+                                element.style.color="white";
+                                element.style.backgroundColor="red";
+                                clearInterval(sayac);
+                            } 
+                        
+                        }, 1000);
+                    }
+                </script>
+        
+            </x-slot>
 </x-app-layout>

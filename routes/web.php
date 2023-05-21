@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\Admin\QuestionController;
+use App\Http\Controllers\OgrenciKabul;
+use App\Http\Controllers\ogrenciler;
+use App\Http\Controllers\OgrenciNotlar;
 use App\Http\Controllers\OgretmenController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\QuizController;
@@ -26,6 +29,11 @@ Route::group(['middleware' => ['auth', 'isAdmin'], 'prefix' => 'admin'], functio
     Route::get('quiz/{quiz_id}/questions/{id}', [QuestionController::class, 'destroy'])->whereNumber('id')->name('questions.destroy');
     Route::resource('quizzes', QuizController::class);
     Route::resource('quiz/{quiz_id}/questions', QuestionController::class);
+    Route::resource('ogrenciKabul', OgrenciKabul::class);
+    Route::resource('ogrenciler', ogrenciler::class);
+    Route::resource('notlar', OgrenciNotlar::class);
+    Route::get('ogrenciKabul/{id}', [OgrenciKabul::class, 'destroy'])->name('ogrenciKabul.destroy');
+
 
 
 });

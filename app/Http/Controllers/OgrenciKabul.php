@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
 use App\Models\ogrenci;
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
-class OgretmenController extends Controller
+class OgrenciKabul extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +16,10 @@ class OgretmenController extends Controller
      */
     public function index()
     {
-        $ogretmenler = User::all()->where('type', '=', 'admin');
-        return view('ogretmenSecim', compact('ogretmenler'));
+        $onaylar = DB::table('users')->join('ogrencis', function ($join) {
+            $join->on('users.id', '=', 'ogrencis.ogrenci_id')->where('ogrencis.ogretmen_id', '=', auth()->user()->id);
+        })->get();
+        return view('admin.ogrenciKabul.ogrenciKabul', compact('onaylar'));
     }
 
     /**
@@ -24,7 +27,6 @@ class OgretmenController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
     public function create()
     {
         //
@@ -38,9 +40,7 @@ class OgretmenController extends Controller
      */
     public function store(Request $request)
     {
-        ogrenci::create($request->post());
-        return redirect()->route('dashboard')->withSuccess('Kayıt İsteği Öğretmen Onayına Başarıyla Sunuldu');
-
+        //
     }
 
     /**
@@ -74,7 +74,12 @@ class OgretmenController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $ogretmen_id = auth()->user()->id;
+        User::where('id', '=', $id)->update(['ogretmen_id' => $ogretmen_id]);
+        $ogrenciNo = ogrenci::where('ogrenci_id', '=', $id)->first()->get();
+        $this->sil($ogrenciNo->first()->id);
+        return redirect()->route('ogrenciKabul.index')->withSuccess('Öğrenci Kabul Edildi');
+
     }
 
     /**
@@ -85,6 +90,16 @@ class OgretmenController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $ogrenci = ogrenci::find($id);
+        $ogrenci->delete();
+        return redirect()->route('ogrenciKabul.index')->withErrors('Öğrenci Reddedildi');
     }
+
+
+    public function sil($id)
+    {
+        $ogrenci = ogrenci::find($id);
+        $ogrenci->delete();
+    }
+
 }

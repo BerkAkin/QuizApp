@@ -5,21 +5,23 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
+                    <a href="{{ route('quizzes.index') }}">
                         <x-jet-application-mark class="block h-9 w-auto" />
                     </a>
+                    <h6 class="display-6 pt-3">Sınavsal</h6>
                 </div>
 
-                <!-- Navigation Links -->
+                <!-- Navigation Links 
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                        {{ __('Anasayfa') }}
+                    <x-jet-nav-link href="{{ route('quizzes.index') }}" :active="request()->routeIs('quizzes.index')">
+                        {{ __('Sınavlar') }}
                     </x-jet-nav-link>
-                </div>
+                </div>-->
             </div>
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">
+                <p class="text-muted pt-3 me-2">Seçenekler <i class="fa-solid fa-arrow-right"></i></p>
                 <x-jet-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
@@ -42,10 +44,23 @@
                     <x-slot name="content">
                         @if(auth()->user()->type=='admin')
                             <div class="block px-4 py-2 text-xs text-gray-400">
-                                Admin
+                                Öğretmen
                             </div>
+                            
                             <x-jet-dropdown-link href="{{ route('quizzes.index') }}">
                                 Sınavlar
+                            </x-jet-dropdown-link>
+
+                            <x-jet-dropdown-link href="{{ route('ogrenciKabul.index') }}">
+                                Öğrenci Kabul
+                            </x-jet-dropdown-link>
+
+                            <x-jet-dropdown-link href="{{ route('ogrenciler.index') }}">
+                                Öğrenciler
+                            </x-jet-dropdown-link>
+
+                            <x-jet-dropdown-link href="{{ route('notlar.index') }}">
+                                Notlar
                             </x-jet-dropdown-link>
                         @endif
 
@@ -53,10 +68,16 @@
 
                         @if(auth()->user()->type!='admin')
                             <div class="block px-4 py-2 text-xs text-gray-400">
-                                Öğretmen Seçimi
+                                Öğretmen Seçenekleri
                             </div>
                             <x-jet-dropdown-link href="{{route('ogretmen.index')}}">
                                 Öğretmenler
+                            </x-jet-dropdown-link>
+                            <div class="block px-4 py-2 text-xs text-gray-400">
+                                Sınavlar
+                            </div>
+                            <x-jet-dropdown-link href="{{ route('quizzes.index') }}">
+                                Sınavlar
                             </x-jet-dropdown-link>
                         @endif
 

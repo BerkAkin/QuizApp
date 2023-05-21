@@ -25,19 +25,26 @@ class QuizCreateRequest extends FormRequest
     {
 
         return [
-           'title'=>'required | min:10|max:200',
-           'description'=>'max:1000',
-           'finished_at' =>'nullable|after:'.now()
+            'title' => 'required | min:10|max:200',
+            'description' => 'max:1000',
+            'finished_at' => 'nullable|after:' . now(),
+            'counter' => 'required',
+            'gereken_min_not' => 'required',
+            'kisi_sayisi' => 'required',
 
 
         ];
     }
 
-    public function attributes(){
+    public function attributes()
+    {
         return [
             'title' => 'Sınav Başlığı',
-            'description' =>'Sınav Açıklaması',
-            'finished_at'=>'Bitiş Tarihi'
+            'description' => 'Sınav Açıklaması',
+            'finished_at' => 'Bitiş Tarihi',
+            'counter' => 'Sınav Süresi',
+            'gereken_min_not' => 'Minimum Not',
+            'kisi_sayisi' => 'Kişi Sayısı',
         ];
     }
 }

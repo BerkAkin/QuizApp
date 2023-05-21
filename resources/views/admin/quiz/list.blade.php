@@ -24,22 +24,25 @@
                 </div>
             </form>
         </div>
-            <table class="table table-hover table-bordered">
+            <table style="width:98%" class="mx-auto table table-hover table-bordered">
                 <thead>
                   <tr>
-                    <th scope="col">Sınav Adı</th>
-                    <th scope="col">Soru Miktarı</th>
-                    <th scope="col">Durum</th>
-                    <th scope="col">Bitiş Tarihi</th>
-                    <th scope="col">İşlemler</th>
+                    <th class="text-center" scope="col">Sınav Adı</th>
+                    <th class="text-center" scope="col">Soru Miktarı</th>
+                    <th class="text-center" scope="col">Durum</th>
+                    <th class="text-center" scope="col">Sınav Süresi</th>
+                    <th class="text-center" scope="col">Katılacak Kişi Sayısı</th>
+                    <th class="text-center" scope="col">Minimum Not</th>
+                    <th class="text-center" scope="col">Bitiş Tarihi</th>
+                    <th class="text-center" scope="col">İşlemler</th>
                   </tr>
                 </thead>
                 <tbody>
                     @foreach ($quizzes as $quiz)
                     <tr>
                         <td>{{$quiz->title}}</td>
-                        <td>{{$quiz->questions_count}}</td>
-                        <td>
+                        <td class="text-center">{{$quiz->questions_count}}</td>
+                        <td class="text-center">
                            @switch($quiz->status)
                                @case('published')
                                   <span class="badge bg-success text-dark">Sınav Aktif</span>      
@@ -53,8 +56,11 @@
                                    
                            @endswitch
                         </td>
-                        <td>{{$quiz->finished_at ? $quiz->finished_at->diffForHumans(): "Bitiş Tarihi Yok"}}</td>
-                        <td>
+                        <td class="text-center">{{$quiz->counter}} dk</td>
+                        <td class="text-center">{{$quiz->kisi_sayisi}}</td>
+                        <td class="text-center text-primary">{{$quiz->gereken_min_not}}</td>
+                        <td class="text-center">{{$quiz->finished_at ? $quiz->finished_at->diffForHumans(): "Bitiş Tarihi Yok"}}</td>
+                        <td class="text-center">
                             <a href="{{route('questions.index',$quiz->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-add"></i></a>
                             <a href="{{route('quizzes.edit',$quiz->id)}}" class="btn btn-sm btn-primary"><i class="fa fa-pen"></i></a>
                             <a href="{{route('quizzes.destroy',$quiz->id)}}" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></a>

@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\ogrenci;
+use App\Models\Quiz;
+use App\Models\Result;
+use Illuminate\Support\Facades\DB;
 
-class OgretmenController extends Controller
+class OgrenciNotlar extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +17,19 @@ class OgretmenController extends Controller
      */
     public function index()
     {
-        $ogretmenler = User::all()->where('type', '=', 'admin');
-        return view('ogretmenSecim', compact('ogretmenler'));
+        $notlar = DB::table('results')
+            ->join('users', function ($join) {
+                $join->on('results.user_id', '=', 'users.id')->where('users.type', '=', 'user');
+            })
+            ->join('quizzes', function ($join) {
+                $join->on('quizzes.id', '=', 'results.quiz_id')->where('quizzes.sahip', '=', auth()->user()->id);
+            })
+            ->get(['name', 'title', 'score', 'email', 'profile_photo_path', 'correct', 'wrong', 'gereken_min_not']);
+
+        $sinavlar = Quiz::where('sahip', '=', auth()->user()->id)->get(['id', 'title']);
+        return view('admin.ogrenciNot.ogrenciNot', compact(['notlar', 'sinavlar']));
+
+
     }
 
     /**
@@ -24,7 +37,6 @@ class OgretmenController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
     public function create()
     {
         //
@@ -38,9 +50,7 @@ class OgretmenController extends Controller
      */
     public function store(Request $request)
     {
-        ogrenci::create($request->post());
-        return redirect()->route('dashboard')->withSuccess('Kayıt İsteği Öğretmen Onayına Başarıyla Sunuldu');
-
+        //
     }
 
     /**

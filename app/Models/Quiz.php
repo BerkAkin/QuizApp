@@ -12,7 +12,7 @@ class Quiz extends Model
     use HasFactory;
     use Sluggable;
 
-    protected $fillable = ['title', 'description', 'finished_at', 'status', 'slug', 'sahip'];
+    protected $fillable = ['title', 'description', 'finished_at', 'status', 'slug', 'sahip', 'counter', 'kisi_sayisi', 'gereken_min_not'];
     protected $dates = ['finished_at'];
 
 
@@ -25,7 +25,7 @@ class Quiz extends Model
 
     public function siralama()
     {
-        return $this->results()->orderByDesc('score')->take(5);
+        return $this->results()->orderByDesc('score')->take(4);
     }
 
     public function myResult()

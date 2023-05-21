@@ -1,5 +1,5 @@
 <x-app-layout>
-    <x-slot name="header">Anasayfa</x-slot>
+    <x-slot name="header">Sınavlar</x-slot>
 
 <div class="row">
     <div class="col-md-12">
@@ -7,10 +7,14 @@
             @foreach($quizzes as $quiz)
                 <a href="{{route('quiz.detail', $quiz->slug)}}" class="list-group-item list-group-item-action mt-5" aria-current="true">
                     <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1 text-dark">{{$quiz->title}}</h5>
-                        <small class="text-primary bold fw-bold">{{$quiz->finished_at ? $quiz->finished_at->diffForHumans() . " bitiyor": null}}</small>
+                        <h5 class="mb-1 text-dark"><span class="fw-bold">Sınav Başlığı: </span>{{$quiz->title}}</h5>
+                        @if(date("Y-m-d H:i:s")>$quiz->finished_at)
+                            <small class="text-danger bold fw-bold">{{$quiz->finished_at ? $quiz->finished_at->diffForHumans() . " bitti": null}}</small>
+                        @else
+                            <small class="text-primary bold fw-bold">{{$quiz->finished_at ? $quiz->finished_at->diffForHumans() . " bitiyor": null}}</small>
+                        @endif
                     </div>
-                    <p class="mb-1 text-muted">{{Str::limit($quiz->description,150)}}</p>
+                    <p class="mb-1 text-muted"><span class="fw-bold">Sınav Açıklaması: </span>{{Str::limit($quiz->description,100)}}</p>
                     <small>Soru Sayısı: {{$quiz->questions_count}}</small>
                 </a>
             @endforeach

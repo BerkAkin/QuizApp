@@ -4,9 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\ogrenci;
 
-class OgretmenController extends Controller
+class ogrenciler extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +14,9 @@ class OgretmenController extends Controller
      */
     public function index()
     {
-        $ogretmenler = User::all()->where('type', '=', 'admin');
-        return view('ogretmenSecim', compact('ogretmenler'));
+        $ogretmen = auth()->user()->id;
+        $ogrencilerim = User::where('ogretmen_id', '=', $ogretmen)->get();
+        return view('admin.ogrenciler.ogrenciler', compact('ogrencilerim'));
     }
 
     /**
@@ -24,7 +24,6 @@ class OgretmenController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
     public function create()
     {
         //
@@ -38,9 +37,7 @@ class OgretmenController extends Controller
      */
     public function store(Request $request)
     {
-        ogrenci::create($request->post());
-        return redirect()->route('dashboard')->withSuccess('Kayıt İsteği Öğretmen Onayına Başarıyla Sunuldu');
-
+        //
     }
 
     /**
@@ -74,7 +71,9 @@ class OgretmenController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        User::where('id', '=', $id)->update(['ogretmen_id' => null]);
+        return redirect()->route('ogrenciler.index')->withSuccess('Öğrenci Silme Başarılı');
+
     }
 
     /**
@@ -85,6 +84,6 @@ class OgretmenController extends Controller
      */
     public function destroy($id)
     {
-        //
+
     }
 }

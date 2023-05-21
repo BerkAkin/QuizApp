@@ -21,6 +21,9 @@ class QuizMigration extends Migration
             $table->timestamp('finished_at')->nullable();
             $table->enum('status', ['published', 'draft', 'passive'])->default('draft');
             $table->string('sahip')->default('');
+            $table->integer('counter')->default(60);
+            $table->integer('kisi_sayisi')->default(80);
+            $table->integer('gereken_min_not')->default(60);
             $table->timestamps();
         });
     }
