@@ -32,7 +32,9 @@ class MainController extends Controller
     {
 
         $quiz = Quiz::with('questions')->whereSlug($slug)->first() ?? abort(404, 'Sınav Mevcut Değil');
-        if ((date("Y-m-d H:i:s") < $quiz->finished_at || $quiz->finished_at == null) && !Result::where('user_id', '=', auth()->user()->id)->value('user_id')) {
+        $kayitVarMi = Result::where('user_id', '=', auth()->user()->id)->where('quiz_id', $quiz->id)->value('quiz_id');
+        
+        if ((date("Y-m-d H:i:s") < $quiz->finished_at || $quiz->finished_at == null) && $kayitVarMi == null) {
             $correct = 0;
             foreach ($quiz->questions as $question) {
                 /*  echo $question->id . '-' . $question->correct_answer . '/' . $request->post($question->id) . '<br>'; */
