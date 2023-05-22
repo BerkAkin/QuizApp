@@ -11,12 +11,44 @@
                     <h6 class="display-6 pt-3">Sınavsal</h6>
                 </div>
 
-                <!-- Navigation Links 
+                
+
+
+                @if(auth()->user()->type=='admin')
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('quizzes.index') }}" :active="request()->routeIs('quizzes.index')">
                         {{ __('Sınavlar') }}
                     </x-jet-nav-link>
-                </div>-->
+                </div>
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-jet-nav-link href="{{ route('notlar.index') }}" :active="request()->routeIs('notlar.index')">
+                            {{ __('Notlar') }}
+                        </x-jet-nav-link>
+                    </div>
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-jet-nav-link href="{{ route('ogrenciKabul.index') }}" :active="request()->routeIs('ogrenciKabul.index')">
+                            {{ __('Öğrenci Kabul') }}
+                        </x-jet-nav-link>
+                    </div>
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-jet-nav-link href="{{ route('ogrenciler.index') }}" :active="request()->routeIs('ogrenciler.index')">
+                            {{ __('Öğrenciler') }}
+                        </x-jet-nav-link>
+                    </div>
+                @endif
+
+                @if(auth()->user()->type!='admin')
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-jet-nav-link href="{{ route('ogretmen.index') }}" :active="request()->routeIs('ogretmen.index')">
+                            {{ __('Öğretmenler') }}
+                        </x-jet-nav-link>
+                    </div>
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-jet-nav-link href="{{ route('quizzes.index') }}" :active="request()->routeIs('quizzes.index')">
+                            {{ __('Sınavlar') }}
+                        </x-jet-nav-link>
+                    </div>
+                @endif
             </div>
 
             <!-- Settings Dropdown -->
@@ -42,7 +74,7 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        @if(auth()->user()->type=='admin')
+{{--                         @if(auth()->user()->type=='admin')
                             <div class="block px-4 py-2 text-xs text-gray-400">
                                 Öğretmen
                             </div>
@@ -62,7 +94,7 @@
                             <x-jet-dropdown-link href="{{ route('notlar.index') }}">
                                 Notlar
                             </x-jet-dropdown-link>
-                        @endif
+                        @endif 
 
 
 
@@ -79,7 +111,7 @@
                             <x-jet-dropdown-link href="{{ route('quizzes.index') }}">
                                 Sınavlar
                             </x-jet-dropdown-link>
-                        @endif
+                        @endif--}}
 
 
 
@@ -162,9 +194,28 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                {{ __('Anasayfa') }}
-            </x-jet-responsive-nav-link>
+            @if(auth()->user()->type=='admin')
+                <x-jet-responsive-nav-link href="{{ route('quizzes.index') }}" :active="request()->routeIs('dashboard')">
+                    {{ __('Sınavlar') }}
+                </x-jet-responsive-nav-link>            
+                <x-jet-responsive-nav-link href="{{ route('notlar.index') }}" :active="request()->routeIs('dashboard')">
+                    {{ __('Notlar') }}
+                </x-jet-responsive-nav-link>
+                <x-jet-responsive-nav-link href="{{ route('ogrenciKabul.index') }}" :active="request()->routeIs('dashboard')">
+                    {{ __('Öğrenci Kabul') }}
+                </x-jet-responsive-nav-link>
+                <x-jet-responsive-nav-link href="{{ route('ogrenciler.index') }}" :active="request()->routeIs('dashboard')">
+                    {{ __('Öğrenciler') }}
+                </x-jet-responsive-nav-link>
+            @endif
+            @if(auth()->user()->type!='admin')
+                <x-jet-responsive-nav-link href="{{ route('ogretmen.index') }}" :active="request()->routeIs('dashboard')">
+                    {{ __('Öğretmenler') }}
+                </x-jet-responsive-nav-link>            
+                <x-jet-responsive-nav-link href="{{ route('quizzes.index') }}" :active="request()->routeIs('dashboard')">
+                    {{ __('Sınavlar') }}
+                </x-jet-responsive-nav-link>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->
