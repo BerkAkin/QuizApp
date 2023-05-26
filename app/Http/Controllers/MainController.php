@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Quiz;
 use App\Models\Answer;
 use App\Models\Result;
+use App\Models\Message;
 
 class MainController extends Controller
 {
@@ -13,7 +14,9 @@ class MainController extends Controller
     {
 
         $quizzes = Quiz::where('status', '=', 'published')->where('sahip', '=', auth()->user()->ogretmen_id)->WithCount('questions')->paginate(5);
-        return view('dashboard', compact('quizzes'));
+        $userMessages = Message::where('alici_id', auth()->user()->id)->get();
+        $yeniler = Message::where('okundu_bilgisi', "0")->where('alici_id', auth()->user()->id)->get()->count();
+        return view('dashboard', compact(['quizzes', 'userMessages', 'yeniler']));
     }
 
     public function quizDetail($slug)
@@ -33,7 +36,7 @@ class MainController extends Controller
 
         $quiz = Quiz::with('questions')->whereSlug($slug)->first() ?? abort(404, 'Sınav Mevcut Değil');
         $kayitVarMi = Result::where('user_id', '=', auth()->user()->id)->where('quiz_id', $quiz->id)->value('quiz_id');
-        
+
         if ((date("Y-m-d H:i:s") < $quiz->finished_at || $quiz->finished_at == null) && $kayitVarMi == null) {
             $correct = 0;
             foreach ($quiz->questions as $question) {
@@ -65,5 +68,11 @@ class MainController extends Controller
         }
     }
 
+
+    public function okundIsaretle($id)
+    {
+        Message::where('id', '=', $id)->update(['okundu_bilgisi' => "1"]);
+        return redirect()->back();
+    }
 
 }
