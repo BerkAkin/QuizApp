@@ -14,7 +14,14 @@ class MainController extends Controller
     {
 
         $quizzes = Quiz::where('status', '=', 'published')->where('sahip', '=', auth()->user()->ogretmen_id)->WithCount('questions')->paginate(5);
-        $userMessages = Message::where('alici_id', auth()->user()->id)->get();
+        $userMessages = Message::where('alici_id', auth()->user()->id)->join('users', 'users.id', '=', 'messages.gonderen_id')->get([
+            'messages.id',
+            'messages.baslik',
+            'messages.mesaj',
+            'messages.okundu_bilgisi',
+            'messages.created_at',
+            'users.name'
+        ]);
         $yeniler = Message::where('okundu_bilgisi', "0")->where('alici_id', auth()->user()->id)->get()->count();
         return view('dashboard', compact(['quizzes', 'userMessages', 'yeniler']));
     }
