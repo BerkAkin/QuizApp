@@ -30,12 +30,13 @@
         <hr>
         <div class="card bg-dark" style="width: 100%;">
             @if($yeniler=="0")
-            <div class="card-header h6 text-warning fw-bold">
-                    Yeni Mesajınız Yok
+            <div class="card-header h6 text-warning fw-bold ">
+                <span>Yeni Mesajınız Yok</span>
                 @else
                 <div class="card-header h6 text-success fw-bold">
                     {{$yeniler}} Yeni Mesajınız Var !
                 @endif
+                <a class="float-end btn-sm btn btn-warning fw-bold"><i class="fa-solid fa-pencil"></i></a>
               </div>
 
         
@@ -69,10 +70,8 @@
 @else
 <div class="row">
     <div class="col-md-7">
-        @if(auth()->user()->type!='admin')
         <h5 class="display-6">Sınavlar</h5>
         <hr>
-        @endif
         <div class="list-group">
             @foreach($quizzes as $quiz)
                 <a href="{{route('quiz.detail', $quiz->slug)}}" class="list-group-item list-group-item-action mt-2 border" aria-current="true">
@@ -99,14 +98,17 @@
     <div class="col-md-5">
         <h5 class="display-6 text-center">Mesajlar</h5>
         <hr>
-        <div class="card bg-dark" style="width: 100%;">
+        <div class="card" style="width: 100%; background-color:rgb(0, 0, 0)">
+            
             @if($yeniler=="0")
             <div class="card-header h6 text-warning fw-bold">
                     Yeni Mesajınız Yok
                 @else
                 <div class="card-header h6 text-success fw-bold">
                     {{$yeniler}} Yeni Mesajınız Var !
+                    
                 @endif
+                <a class="float-end btn-sm btn btn-warning fw-bold"><i class="fa-solid fa-pencil"></i></a>
               </div>
 
         
@@ -115,15 +117,20 @@
                         <div class="accordion-item  border-bottom-0 border-start-0 border-end-0 rounded-0">
                             <h2 class="accordion-header" id="headingOne">
                                 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{$item->id}}" aria-expanded="true" aria-controls="collapse{{$item->id}}">
-                                <span class="fw-bold text-capitalize @if($item->okundu_bilgisi==1) text-dark @else text-success @endif">{{$item->baslik}}</span>                
+                                    <span class=" w-100  fw-bold text-capitalize @if($item->okundu_bilgisi==1) text-dark @else text-success @endif">{{Str::limit($item->baslik,25)}}
+                                        @if($item->okundu_bilgisi==0)<span class="float-end badge bg-success rounded-pill"> Yeni</span> @endif 
+                                        
+                                    </span>          
                                 </button>
                             </h2>
+                           
                             <div id="collapse{{$item->id}}" class="accordion-collapse collapse " aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
-                                <div class="text-muted">{{$item->mesaj}}</div>
-                                @if($item->okundu_bilgisi==0)
-                                <a href="{{route('okundu', $item->id)}}" class="mt-4 btn btn-sm btn-success w-100 fw-bold"><i class="fa-regular fa-envelope-open"></i> Okundu Olarak İşaretle</a>
-                                @endif
+                                    <div class="text-muted">{{$item->mesaj}}</div>
+                                    <div class="badge mt-3 ms-0 bg-secondary rounded-pill">Gönderen: {{$item->gonderen_id}}</div> 
+                                    @if($item->okundu_bilgisi==0)
+                                    <a href="{{route('okundu', $item->id)}}" class="mt-4 btn btn-sm btn-success w-100 fw-bold"><i class="fa-regular fa-envelope-open"></i> Okundu Olarak İşaretle</a>
+                                    @endif
                                 </div>
                             </div>
                         </div>
