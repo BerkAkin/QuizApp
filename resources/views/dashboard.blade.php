@@ -127,7 +127,11 @@
                             <div id="collapse{{$item->id}}" class="accordion-collapse collapse " aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                                     <div class="text-muted">{{$item->mesaj}}</div>
-                                    <div class="badge mt-3 ms-0 bg-secondary rounded-pill">Gönderen: {{$item->gonderen_id}}</div> 
+                                    <div>
+                                        <div class="badge mt-3 ms-0 bg-secondary rounded-pill">Gönderen: {{$item->gonderen_id}}</div>
+                                        <div class="float-end badge mt-3 ms-0 bg-primary rounded-pill">{{$item->created_at->diffForHumans()}}</div>
+                                    </div>
+                                     
                                     @if($item->okundu_bilgisi==0)
                                     <a href="{{route('okundu', $item->id)}}" class="mt-4 btn btn-sm btn-success w-100 fw-bold"><i class="fa-regular fa-envelope-open"></i> Okundu Olarak İşaretle</a>
                                     @endif
