@@ -45,7 +45,7 @@
                     </div>
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-jet-nav-link href="{{ route('quizzes.index') }}" :active="request()->routeIs('quizzes.index')">
-                            {{ __('Sınavlar') }}
+                            {{ __('Dashboard') }}
                         </x-jet-nav-link>
                     </div>
                 @endif
@@ -213,7 +213,7 @@
                     {{ __('Öğretmenler') }}
                 </x-jet-responsive-nav-link>            
                 <x-jet-responsive-nav-link href="{{ route('quizzes.index') }}" :active="request()->routeIs('dashboard')">
-                    {{ __('Sınavlar') }}
+                    {{ __('Dashboard') }}
                 </x-jet-responsive-nav-link>
             @endif
         </div>
