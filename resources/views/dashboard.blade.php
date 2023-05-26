@@ -40,25 +40,35 @@
               </div>
 
         
-                @foreach($userMessages as $item)
-                    <div class="accordion bg-light" style="margin: 0.5px" id="accordionExample">
-                        <div class="accordion-item  border-bottom-0 border-start-0 border-end-0 rounded-0">
-                            <h2 class="accordion-header" id="headingOne">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{$item->id}}" aria-expanded="true" aria-controls="collapse{{$item->id}}">
-                                <span class="fw-bold text-capitalize @if($item->okundu_bilgisi==1) text-dark @else text-success @endif">{{$item->baslik}}</span>                
-                                </button>
-                            </h2>
-                            <div id="collapse{{$item->id}}" class="accordion-collapse collapse " aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                <div class="accordion-body">
-                                <div class="text-muted">{{$item->mesaj}}</div>
-                                @if($item->okundu_bilgisi==0)
-                                <a href="{{route('okundu', $item->id)}}" class="mt-4 btn btn-sm btn-success w-100 fw-bold"><i class="fa-regular fa-envelope-open"></i> Okundu Olarak İşaretle</a>
-                                @endif
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
+              @foreach($userMessages as $item)
+              <div class="accordion bg-light" style="margin: 0.5px" id="accordionExample">
+                  <div class="accordion-item  border-bottom-0 border-start-0 border-end-0 rounded-0">
+                      <h2 class="accordion-header" id="headingOne">
+                          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{$item->id}}" aria-expanded="true" aria-controls="collapse{{$item->id}}">
+                              <span class=" w-100  fw-bold text-capitalize @if($item->okundu_bilgisi==1) text-dark @else text-success @endif">{{Str::limit($item->baslik,25)}}
+                                  @if($item->okundu_bilgisi==0)<span class="float-end badge bg-success rounded-pill"> Yeni</span> @endif 
+
+                              </span>          
+                          </button>
+                      </h2>
+                     
+                      <div id="collapse{{$item->id}}" class="accordion-collapse collapse " aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                          <div class="accordion-body">
+                              <div class="text-muted">{{$item->mesaj}}</div>
+                              <hr>
+                              <div>
+                                  <div class=" badge mt-3 ms-0 bg-info rounded-pill text-dark">Gönderen: {{$item->name}}</div>
+                                  <div class="float-end badge mt-3 ms-0 bg-warning rounded-pill text-dark">{{$item->created_at->diffForHumans()}}</div>
+                              </div>
+                               
+                              @if($item->okundu_bilgisi==0)
+                              <a href="{{route('okundu', $item->id)}}" class="mt-4 btn btn-sm btn-success w-100 fw-bold"><i class="fa-regular fa-envelope-open"></i> Okundu Olarak İşaretle</a>
+                              @endif
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          @endforeach
             </div>
         </div>
     </div>
@@ -127,8 +137,10 @@
                             <div id="collapse{{$item->id}}" class="accordion-collapse collapse " aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                                     <div class="text-muted">{{$item->mesaj}}</div>
+                                    <hr>
                                     <div>
-                                        <div class="float-end badge mt-3 ms-0 bg-primary rounded-pill">{{$item->created_at->diffForHumans()}}</div>
+                                        <div class=" badge mt-3 ms-0 bg-info rounded-pill text-dark">Gönderen: {{$item->name}}</div>
+                                        <div class="float-end badge mt-3 ms-0 bg-warning rounded-pill text-dark">{{$item->created_at->diffForHumans()}}</div>
                                     </div>
                                      
                                     @if($item->okundu_bilgisi==0)
