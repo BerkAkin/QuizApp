@@ -35,19 +35,25 @@
                             {{ __('Öğrenciler') }}
                         </x-jet-nav-link>
                     </div>
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                            {{ __('Mesajlar') }}
+                        </x-jet-nav-link>
+                    </div>
                 @endif
 
                 @if(auth()->user()->type!='admin')
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-jet-nav-link href="{{ route('quizzes.index') }}" :active="request()->routeIs('dashboard')">
+                            {{ __('Dashboard') }}
+                        </x-jet-nav-link>
+                    </div>
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-jet-nav-link href="{{ route('ogretmen.index') }}" :active="request()->routeIs('ogretmen.index')">
                             {{ __('Öğretmenler') }}
                         </x-jet-nav-link>
                     </div>
-                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-jet-nav-link href="{{ route('quizzes.index') }}" :active="request()->routeIs('quizzes.index')">
-                            {{ __('Dashboard') }}
-                        </x-jet-nav-link>
-                    </div>
+
                 @endif
             </div>
 
@@ -195,24 +201,27 @@
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
             @if(auth()->user()->type=='admin')
-                <x-jet-responsive-nav-link href="{{ route('quizzes.index') }}" :active="request()->routeIs('dashboard')">
+                <x-jet-responsive-nav-link href="{{ route('quizzes.index') }}" :active="request()->routeIs('quizzes.index')">
                     {{ __('Sınavlar') }}
                 </x-jet-responsive-nav-link>            
-                <x-jet-responsive-nav-link href="{{ route('notlar.index') }}" :active="request()->routeIs('dashboard')">
+                <x-jet-responsive-nav-link href="{{ route('notlar.index') }}" :active="request()->routeIs('notlar.index')">
                     {{ __('Notlar') }}
                 </x-jet-responsive-nav-link>
-                <x-jet-responsive-nav-link href="{{ route('ogrenciKabul.index') }}" :active="request()->routeIs('dashboard')">
+                <x-jet-responsive-nav-link href="{{ route('ogrenciKabul.index') }}" :active="request()->routeIs('ogrenciKabul.index')">
                     {{ __('Öğrenci Kabul') }}
                 </x-jet-responsive-nav-link>
-                <x-jet-responsive-nav-link href="{{ route('ogrenciler.index') }}" :active="request()->routeIs('dashboard')">
+                <x-jet-responsive-nav-link href="{{ route('ogrenciler.index') }}" :active="request()->routeIs('ogrenciler.index')">
                     {{ __('Öğrenciler') }}
+                </x-jet-responsive-nav-link>
+                <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                    {{ __('Mesajlar') }}
                 </x-jet-responsive-nav-link>
             @endif
             @if(auth()->user()->type!='admin')
-                <x-jet-responsive-nav-link href="{{ route('ogretmen.index') }}" :active="request()->routeIs('dashboard')">
+                <x-jet-responsive-nav-link href="{{ route('ogretmen.index') }}" :active="request()->routeIs('ogretmen.index')">
                     {{ __('Öğretmenler') }}
                 </x-jet-responsive-nav-link>            
-                <x-jet-responsive-nav-link href="{{ route('quizzes.index') }}" :active="request()->routeIs('dashboard')">
+                <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                     {{ __('Dashboard') }}
                 </x-jet-responsive-nav-link>
             @endif
