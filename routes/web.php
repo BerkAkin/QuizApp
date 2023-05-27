@@ -37,3 +37,7 @@ Route::group(['middleware' => ['auth', 'isAdmin'], 'prefix' => 'admin'], functio
     Route::resource('notlar', OgrenciNotlar::class);
     Route::get('ogrenciKabul/{id}', [OgrenciKabul::class, 'destroy'])->name('ogrenciKabul.destroy');
 });
+
+Route::group(['middleware' => ['auth', 'ustYonetici']], function () {
+    Route::get('dondur/{id}/{type}', [MainController::class, 'tipGuncelle'])->name('tipDegistir');
+});
