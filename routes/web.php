@@ -8,6 +8,7 @@ use App\Http\Controllers\OgretmenController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\QuizController;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\UstYonetici\UstyoneticiController;
 
 
 Route::get('/', function () {
@@ -35,7 +36,4 @@ Route::group(['middleware' => ['auth', 'isAdmin'], 'prefix' => 'admin'], functio
     Route::resource('ogrenciler', ogrenciler::class);
     Route::resource('notlar', OgrenciNotlar::class);
     Route::get('ogrenciKabul/{id}', [OgrenciKabul::class, 'destroy'])->name('ogrenciKabul.destroy');
-
-
-
 });
