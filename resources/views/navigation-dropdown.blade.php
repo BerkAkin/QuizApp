@@ -61,6 +61,11 @@
                             {{ __('Dashboard') }}
                         </x-jet-nav-link>
                     </div>
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-jet-nav-link href="{{ route('sistemLoglari') }}" :active="request()->routeIs('sistemLoglari')">
+                            {{ __('Sistem Logları') }}
+                        </x-jet-nav-link>
+                    </div>
                 @endif
 
             </div>
@@ -236,6 +241,9 @@
             @if(auth()->user()->type=='ustYonetici')        
             <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
+            </x-jet-responsive-nav-link>
+            <x-jet-responsive-nav-link href="{{ route('sistemLoglari') }}" :active="request()->routeIs('sistemLoglari')">
+                {{ __('Sistem Logları') }}
             </x-jet-responsive-nav-link>
         @endif
         </div>
