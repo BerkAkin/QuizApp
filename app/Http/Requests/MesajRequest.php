@@ -23,11 +23,19 @@ class MesajRequest extends FormRequest
      */
     public function rules()
     {
+        if (auth()->user()->type == "admin") {
+            return [
+                'baslik' => 'required | min:10| max:40',
+                'mesaj' => 'required | min:10| max:300',
+                'ogrenci' => 'required',
+            ];
+        } else {
+            return [
+                'baslik' => 'required | min:10| max:40',
+                'mesaj' => 'required | min:10| max:300',
+            ];
+        }
 
-        return [
-            'baslik' => 'required | min:10| max:40',
-            'mesaj' => 'required | min:10| max:300',
-        ];
     }
 
     public function attributes()
