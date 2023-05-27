@@ -59,7 +59,7 @@ class MainController extends Controller
         ]);
         $yeniler = Message::where('okundu_bilgisi', "0")->where('alici_id', auth()->user()->id)->get()->count();
         $kullanicilar = User::where('ogretmen_id', auth()->user()->id)->get(['id', 'name']);
-        $ogretmenler = User::where('type', '!=', 'ustYonetici')->get(['name', 'email', 'id']);
+        $ogretmenler = User::where('type', '!=', 'ustYonetici')->get(['name', 'email', 'id', 'type']);
         $yoneticiler = User::where('type', '=', 'ustYonetici')->get(['name', 'email', 'id']);
         $gidenMesajlar = Message::where('gonderen_id', auth()->user()->id)->join('users', 'users.id', '=', 'messages.alici_id')->orderBy('id', 'desc')->get([
             'messages.id',
@@ -170,6 +170,19 @@ class MainController extends Controller
             return redirect()->back()->withErrors('Mesaj Gönderilemedi');
         }
 
+    }
+
+
+
+    public function tipGuncelle($id, $type)
+    {
+        if ($type == 'user') {
+            User::where('id', '=', $id)->update(['type' => "admin"]);
+        } else {
+            User::where('id', '=', $id)->update(['type' => "user"]);
+        }
+
+        return redirect()->back();
     }
 
 }

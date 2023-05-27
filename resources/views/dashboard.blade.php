@@ -202,7 +202,7 @@
 
 
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-6">
                 <div>
                     <ul class="nav nav-tabs border-warning" id="myTab" role="tablist">
                         <li class="nav-item" role="presentation">
@@ -299,6 +299,59 @@
                             </div>
                         </div>
                 </div>
+        </div>
+
+
+        <div class="col-6">
+            <div class="card">
+                <div class="card-body fw-bold text-lg">
+                    Kullanıcı İşlemleri
+                </div>
+            <div style="max-height: 600px; overflow-y:scroll">
+                <table style="width:98%" class="mx-auto table table-hover table-bordered">
+                    <thead class="table-dark sticky-top">
+                    <tr>
+                        <th scope="col">Kullanıcı Ad</th>
+                        <th scope="col">Tip</th>
+                        <th scope="col">Kullanıcı Mail</th>
+                        <th scope="col">Tipi Değiştir</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($ogretmenler as $item)
+                        <tr>
+                            <td class="my-auto">{{$item->name}}</td>
+                            @if($item->type=="admin")
+                                <td class="my-auto text-success fw-bold">Öğretmen</td>
+                            @else
+                                <td class="my-auto text-primary fw-bold">Öğrenci</td>
+                            @endif
+                            <td class="my-auto">{{$item->email}}</td>
+                            <td>
+                                @if($item->type=='user')
+                                    <a href="{{route('tipDegistir', [$item->id, $item->type])}}" class="btn btn-sm btn-success w-100 fw-bold"><i class="fas fa-chalkboard-teacher"></i> Öğretmen</a>
+                                @else
+                                    <a href="{{route('tipDegistir', [$item->id, $item->type])}}" class="btn btn-sm btn-primary w-100 fw-bold"><i class="fa-solid fa-user-graduate"></i> Öğrenci</a>
+                                @endif
+                                {{-- <form action="{{route(),$item->id)}}" method="POST">
+                                    @csrf 
+                                    @method('PUT')
+                                    <button type="submit" class="btn btn-danger"><i class="fa fa-times"></i></button>
+                                </form>
+                                <form action="{{route('ogrenciKabul.update',$item->ogrenci_id)}}" method="POST">
+                                    @csrf 
+                                    @method('PUT')
+                                    <button type="submit" class="btn btn-success"><i class="fa fa-check"></i></button>
+                                </form> --}}
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            </div>
+        </div>
+    </div>
         </div>
     </div>
 
