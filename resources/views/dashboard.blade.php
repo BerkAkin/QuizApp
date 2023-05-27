@@ -1,5 +1,5 @@
 <x-app-layout>
-    <x-slot name="header">Dashboard</x-slot>
+    <x-slot name="header"> @if(auth()->user()->type=='admin')Öğretmen Dashboard @elseif(auth()->user()->type=='ustYonetici')Yönetici Dashboard @else Öğrenci Dahsboard @endif</x-slot>
 
     <style>
         .accordion-button:not(.collapsed) 
@@ -191,16 +191,6 @@
             </div>
     </div>
 @elseif(auth()->user()->type=='ustYonetici')
-
-
-
-
-
-
-
-
-
-
     <div class="row">
         <div class="col-md-6">
                 <div>
@@ -354,19 +344,8 @@
     </div>
         </div>
     </div>
-
-
-
-
-
-
-
-
-
-
-
 @else
-{{-- Ana Kısım --}}
+    {{-- Ana Kısım --}}
     <div class="row">
 
         {{-- Sınavlar --}}
