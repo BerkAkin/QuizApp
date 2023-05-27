@@ -31,7 +31,7 @@ class MainController extends Controller
 
         $basliklar = $sonuclarim->pluck('title');
 
-        $chart2 = new TotalChart('Sınav Puanları', true, true);
+        $chart2 = new TotalChart('Sınav Puanları', true, false);
         $chart2->labels($basliklar);
         $dataset2 = $chart2->dataset('Sonuç', 'line', $sonuclarim->pluck('score'));
         $dataset2->color('#8BC6FC');
