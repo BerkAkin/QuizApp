@@ -25,6 +25,26 @@
             box-shadow: none;
         }
 
+        /* width */
+        ::-webkit-scrollbar {
+        width: 5px;
+        border-radius: 5px;
+
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+        background: #c7c7c7; 
+        border-radius: 5px;
+
+        }
+        
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+        background: #ffd900; 
+        border-radius: 5px;
+        }
+
     </style>
 @if(auth()->user()->type=='admin')
     <div class="row">
@@ -32,18 +52,18 @@
         <div class="col-md-12">
             <h5 class="display-6 text-center">Mesajlar</h5>
             <hr>
-            <div class="card bg-dark" style="width: 100%;">
+            <div class="card" style="width: 100%;">
                 @if($yeniler=="0")
-                <div class="card-header h6 text-warning fw-bold ">
-                    <span>Yeni Mesajınız Yok</span>
+                <div class="card-header h6 text-danger fw-bold ">
+                    <span class="d-inline-block mt-2">Yeni Mesajınız Yok</span>
                     @else
                     <div class="card-header h6 text-success fw-bold">
-                        {{$yeniler}} Yeni Mesajınız Var !
+                        <span class="border border-danger d-inline-block mt-2"> {{$yeniler}} Yeni Mesajınız Var !</span>
                     @endif
                     <a data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="float-end btn-sm btn btn-warning fw-bold"><i class="fa-solid fa-pencil"></i></a>
                 </div>
 
-            
+                <div style="max-height: 600px; overflow-y:scroll">
                 @foreach($userMessages as $item)
                 <div class="accordion bg-light" style="margin: 0.5px" id="accordionExample">
                     <div class="accordion-item  border-bottom-0 border-start-0 border-end-0 rounded-0">
@@ -73,6 +93,7 @@
                     </div>
                 </div>
             @endforeach
+                </div>
                 </div>
             </div>
         </div>
@@ -112,49 +133,49 @@
         <div class="col-md-5">
             <h5 class="display-6 text-center">Mesajlar</h5>
             <hr>
-            <div class="card" style="width: 100%; background-color:rgb(0, 0, 0)">
+            <div class="card" style="width: 100%; background-color:rgba(192, 192, 192, 0)">
                 
                 @if($yeniler=="0")
-                <div class="card-header h6 text-warning fw-bold">
-                        Yeni Mesajınız Yok
+                <div class="card-header h6 text-danger fw-bold">
+                    <span class=" d-inline-block mt-2"> Yeni Mesajınız Yok</span>
                     @else
                     <div class="card-header h6 text-success fw-bold">
-                        {{$yeniler}} Yeni Mesajınız Var !
+                        <span class=" d-inline-block mt-2"> {{$yeniler}} Yeni Mesajınız Var !</span>
                         
                     @endif
                     <a data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="float-end btn-sm btn btn-warning fw-bold"><i class="fa-solid fa-pencil"></i></a>
                 </div>
 
-            
-                    @foreach($userMessages as $item)
-                        <div class="accordion bg-light" style="margin: 0.5px" id="accordionExample">
-                            <div class="accordion-item  border-bottom-0 border-start-0 border-end-0 rounded-0">
-                                <h2 class="accordion-header" id="headingOne">
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{$item->id}}" aria-expanded="true" aria-controls="collapse{{$item->id}}">
-                                        <span class=" w-100  fw-bold text-capitalize @if($item->okundu_bilgisi==1) text-dark @else text-success @endif">{{Str::limit($item->baslik,25)}}
-                                            @if($item->okundu_bilgisi==0)<span class="float-end badge bg-success rounded-pill"> Yeni</span> @endif 
+                    <div style="max-height: 600px; overflow-y:scroll">
+                        @foreach($userMessages as $item)
+                            <div class="accordion bg-light " style="margin: 0.5px" id="accordionExample">
+                                <div class="accordion-item  border-bottom-0 border-start-0 border-end-0 rounded-0">
+                                    <h2 class="accordion-header" id="headingOne">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{$item->id}}" aria-expanded="true" aria-controls="collapse{{$item->id}}">
+                                            <span class=" w-100  fw-bold text-capitalize @if($item->okundu_bilgisi==1) text-dark @else text-success @endif">{{Str::limit($item->baslik,25)}}
+                                                @if($item->okundu_bilgisi==0)<span class="float-end badge bg-success rounded-pill"> Yeni</span> @endif 
+                                                
+                                            </span>          
+                                        </button>
+                                    </h2>
+                                    <div id="collapse{{$item->id}}" class="accordion-collapse collapse " aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            <div class="text-muted">{{$item->mesaj}}</div>
+                                            <hr>
+                                            <div>
+                                                <div class=" badge mt-3 ms-0 bg-info rounded-pill text-dark">Gönderen: {{$item->name}}</div>
+                                                <div class="float-end badge mt-3 ms-0 bg-warning rounded-pill text-dark">{{$item->created_at->diffForHumans()}}</div>
+                                            </div>
                                             
-                                        </span>          
-                                    </button>
-                                </h2>
-                            
-                                <div id="collapse{{$item->id}}" class="accordion-collapse collapse " aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">
-                                        <div class="text-muted">{{$item->mesaj}}</div>
-                                        <hr>
-                                        <div>
-                                            <div class=" badge mt-3 ms-0 bg-info rounded-pill text-dark">Gönderen: {{$item->name}}</div>
-                                            <div class="float-end badge mt-3 ms-0 bg-warning rounded-pill text-dark">{{$item->created_at->diffForHumans()}}</div>
+                                            @if($item->okundu_bilgisi==0)
+                                            <a href="{{route('okundu', $item->id)}}" class="mt-4 btn btn-sm btn-success w-100 fw-bold"><i class="fa-regular fa-envelope-open"></i> Okundu Olarak İşaretle</a>
+                                            @endif
                                         </div>
-                                        
-                                        @if($item->okundu_bilgisi==0)
-                                        <a href="{{route('okundu', $item->id)}}" class="mt-4 btn btn-sm btn-success w-100 fw-bold"><i class="fa-regular fa-envelope-open"></i> Okundu Olarak İşaretle</a>
-                                        @endif
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    @endforeach
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </div>
