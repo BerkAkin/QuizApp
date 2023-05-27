@@ -13,7 +13,28 @@
   color: white;
   padding: 5px;
   border-radius: 4px;
+
 }
+
+        /* width */
+        ::-webkit-scrollbar {
+        width: 10px;
+        border-radius: 5px;
+
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+        background: #c7c7c7; 
+        border-radius: 5px;
+
+        }
+        
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+        background: #ffd900; 
+        border-radius: 5px;
+        }
 </style>
 
     <div id="sayac"></div>

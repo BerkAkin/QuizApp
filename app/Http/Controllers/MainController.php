@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use Illuminate\Http\Request;
+use App\Http\Requests\MesajRequest;
 use App\Models\Quiz;
 use App\Models\Answer;
 use App\Models\Result;
+use App\Models\Message;
+use App\Models\User;
 
 class MainController extends Controller
 {
@@ -13,7 +17,25 @@ class MainController extends Controller
     {
 
         $quizzes = Quiz::where('status', '=', 'published')->where('sahip', '=', auth()->user()->ogretmen_id)->WithCount('questions')->paginate(5);
-        return view('dashboard', compact('quizzes'));
+        $userMessages = Message::where('alici_id', auth()->user()->id)->join('users', 'users.id', '=', 'messages.gonderen_id')->orderBy('id', 'desc')->get([
+            'messages.id',
+            'messages.baslik',
+            'messages.mesaj',
+            'messages.okundu_bilgisi',
+            'messages.created_at',
+            'users.name'
+        ]);
+        $yeniler = Message::where('okundu_bilgisi', "0")->where('alici_id', auth()->user()->id)->get()->count();
+        $kullanicilar = User::where('ogretmen_id', auth()->user()->id)->get(['id', 'name']);
+        $gidenMesajlar = Message::where('gonderen_id', auth()->user()->id)->join('users', 'users.id', '=', 'messages.alici_id')->orderBy('id', 'desc')->get([
+            'messages.id',
+            'messages.baslik',
+            'messages.mesaj',
+            'messages.okundu_bilgisi',
+            'messages.created_at',
+            'users.name'
+        ]);
+        return view('dashboard', compact(['quizzes', 'userMessages', 'yeniler', 'kullanicilar', 'gidenMesajlar']));
     }
 
     public function quizDetail($slug)
@@ -33,7 +55,7 @@ class MainController extends Controller
 
         $quiz = Quiz::with('questions')->whereSlug($slug)->first() ?? abort(404, 'Sınav Mevcut Değil');
         $kayitVarMi = Result::where('user_id', '=', auth()->user()->id)->where('quiz_id', $quiz->id)->value('quiz_id');
-        
+
         if ((date("Y-m-d H:i:s") < $quiz->finished_at || $quiz->finished_at == null) && $kayitVarMi == null) {
             $correct = 0;
             foreach ($quiz->questions as $question) {
@@ -65,5 +87,38 @@ class MainController extends Controller
         }
     }
 
+
+    public function okundIsaretle($id)
+    {
+        Message::where('id', '=', $id)->update(['okundu_bilgisi' => "1"]);
+        return redirect()->back();
+    }
+
+    public function mesajGonder(MesajRequest $request)
+    {
+        try {
+            if (auth()->user()->type == "admin") {
+
+                Message::create([
+                    'gonderen_id' => auth()->user()->id,
+                    'alici_id' => $request->ogrenci,
+                    'baslik' => $request->baslik,
+                    'mesaj' => $request->mesaj
+                ]);
+                return redirect()->back()->withSuccess('Mesaj Başarıyla Gönderildi');
+            } else {
+                Message::create([
+                    'gonderen_id' => auth()->user()->id,
+                    'alici_id' => auth()->user()->ogretmen_id,
+                    'baslik' => $request->baslik,
+                    'mesaj' => $request->mesaj
+                ]);
+                return redirect()->back()->withSuccess('Mesaj Başarıyla Gönderildi');
+            }
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors('Mesaj Gönderilemedi');
+        }
+
+    }
 
 }
