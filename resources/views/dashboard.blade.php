@@ -92,7 +92,7 @@
                             <button class="nav-link fw-bold" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Gönderilmiş Mesajlar</button>
                         </li>
                         
-                        <li class="nav-item ml-auto mr-5">
+                        <li class="nav-item ml-auto mr-5 d-none d-md-block">
                             @if($yeniler=="0")
                                 <div class="card-header h6 text-danger fw-bold ">
                                 <span class="d-inline-block mt-2">Yeni Gelen Mesajınız Yok</span>
