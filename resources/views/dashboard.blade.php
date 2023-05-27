@@ -47,25 +47,26 @@
 
 
         .nav-tabs .nav-item .nav-link {
-            background-color: #ffc107;
-           border: none;
-            color: #000000;
+            background-color: #8f9aa3;
+            border: none;
+            color: #ffffff;
             margin-left: 10px;
             }
 
             .nav-tabs .nav-item .nav-link.active {
             background-color: #ffc107;
-           border: none;
+            transform: scale(1.1,1.1);
+            color: #000000;
+            border: none;
             }
 
             .tab-content {
             margin-top:10px;
-           border: none;
-            
+            border: none;
             }
 
             .tab-content .tab-pane {
-           border: none;
+            border: none;
             background-color: #FFF;
             }
     </style>
@@ -106,46 +107,85 @@
                 </div>
             
             <div class="tab-content " id="myTabContent">
+                {{-- Gelen Mesajlar --}}
                 <div class="tab-pane fade show active " id="home" role="tabpanel" aria-labelledby="home-tab">
-                    
-            <!--MESAJLAR BAŞLANGIÇ-->
-                <div class="card border rounded-0 " style="width: 100%;">
-                   
-                    <div style="max-height: 600px; overflow-y:scroll">
-                        @foreach($userMessages as $item)
-                            <div class="accordion bg-light" style="margin: 0.5px" id="accordionExample">
-                                <div class="accordion-item  border-bottom-0 border-start-0 border-end-0 rounded-0">
-                                    <h2 class="accordion-header" id="headingOne">
-                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{$item->id}}" aria-expanded="true" aria-controls="collapse{{$item->id}}">
-                                            <span class=" w-100  fw-bold text-capitalize @if($item->okundu_bilgisi==1) text-dark @else text-success @endif">{{Str::limit($item->baslik,25)}}
-                                                @if($item->okundu_bilgisi==0)<span class="float-end badge bg-success rounded-pill"> Yeni</span> @endif 
+                        
+                        <!--MESAJLAR BAŞLANGIÇ-->
+                            <div class="card border rounded-0 " style="width: 100%;">
+                            
+                                <div style="max-height: 600px; overflow-y:scroll">
+                                    @foreach($userMessages as $item)
+                                        <div class="accordion bg-light" style="margin: 0.5px" id="accordionExample">
+                                            <div class="accordion-item  border-bottom-0 border-start-0 border-end-0 rounded-0">
+                                                <h2 class="accordion-header" id="headingOne">
+                                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{$item->id}}" aria-expanded="true" aria-controls="collapse{{$item->id}}">
+                                                        <span class=" w-100  fw-bold text-capitalize @if($item->okundu_bilgisi==1) text-dark @else text-success @endif">{{Str::limit($item->baslik,25)}}
+                                                            @if($item->okundu_bilgisi==0)<span class="float-end badge bg-success rounded-pill"> Yeni</span> @endif 
 
-                                            </span>          
-                                        </button>
-                                    </h2>
-                                    
-                                    <div id="collapse{{$item->id}}" class="accordion-collapse collapse " aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                        <div class="accordion-body">
-                                            <div class="text-muted">{{$item->mesaj}}</div>
-                                            <hr>
-                                            <div>
-                                                <div class=" badge mt-3 ms-0 bg-info rounded-pill text-dark">Gönderen: {{$item->name}}</div>
-                                                <div class="float-end badge mt-3 ms-0 bg-warning rounded-pill text-dark">{{$item->created_at->diffForHumans()}}</div>
+                                                        </span>          
+                                                    </button>
+                                                </h2>
+                                                
+                                                <div id="collapse{{$item->id}}" class="accordion-collapse collapse " aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                                    <div class="accordion-body">
+                                                        <div class="text-muted">{{$item->mesaj}}</div>
+                                                        <hr>
+                                                        <div>
+                                                            <div class=" badge mt-3 ms-0 bg-info rounded-pill text-dark">Gönderen: {{$item->name}}</div>
+                                                            <div class="float-end badge mt-3 ms-0 bg-warning rounded-pill text-dark">{{$item->created_at->diffForHumans()}}</div>
+                                                        </div>
+                                                        
+                                                        @if($item->okundu_bilgisi==0)
+                                                            <a href="{{route('okundu', $item->id)}}" class="mt-4 btn btn-sm btn-success w-100 fw-bold"><i class="fa-regular fa-envelope-open"></i> Okundu Olarak İşaretle</a>
+                                                        @endif
+                                                    </div>
+                                                </div>
                                             </div>
-                                            
-                                            @if($item->okundu_bilgisi==0)
-                                                <a href="{{route('okundu', $item->id)}}" class="mt-4 btn btn-sm btn-success w-100 fw-bold"><i class="fa-regular fa-envelope-open"></i> Okundu Olarak İşaretle</a>
-                                            @endif
                                         </div>
-                                    </div>
+                                    @endforeach
                                 </div>
                             </div>
-                        @endforeach
+                        <!--MESAJLAR BİTİŞ-->
+                </div>
+                {{-- Giden Mesajlar --}}
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <div class="card border rounded-0 " style="width: 100%;">
+                            <div style="max-height: 600px; overflow-y:scroll">
+                                @foreach($gidenMesajlar as $item)
+                                    <div class="accordion bg-light" style="margin: 0.5px" id="accordionExample">
+                                        <div class="accordion-item  border-bottom-0 border-start-0 border-end-0 rounded-0">
+                                            <h2 class="accordion-header" id="headingOne">
+                                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{$item->id}}" aria-expanded="true" aria-controls="collapse{{$item->id}}">
+                                                    <span class=" w-100  fw-bold text-capitalize text-dark  text-success ">{{Str::limit($item->baslik,25)}}
+                                                        <span class="float-end">
+                                                        @if($item->okundu_bilgisi=="0") 
+                                                            <i class="fa-solid fa-envelope"></i>
+                                                        @else 
+                                                            <i class="fa-solid fa-envelope-open"></i>
+                                                        @endif
+                                                        </span>
+                                                    </span>          
+                                                </button>
+                                            </h2>
+                                            <div id="collapse{{$item->id}}" class="accordion-collapse collapse " aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                                <div class="accordion-body">
+                                                    <div class="text-muted">{{$item->mesaj}}</div>
+                                                    <hr>
+                                                    <div>
+                                                        <div class=" badge mt-3 ms-0 bg-info rounded-pill text-dark">Gönderilen Kişi: {{$item->name}}</div>
+                                                        <div class="float-end badge mt-3 ms-0 bg-warning rounded-pill text-dark">{{$item->created_at->diffForHumans()}}</div>
+                                                        
+       
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
                     </div>
-                </div>
-            <!--MESAJLAR BİTİŞ-->
-                </div>
-                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">gidenler</div>
             </div>
 
             </div>
