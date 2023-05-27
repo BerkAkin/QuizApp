@@ -27,7 +27,15 @@ class MainController extends Controller
         ]);
         $yeniler = Message::where('okundu_bilgisi', "0")->where('alici_id', auth()->user()->id)->get()->count();
         $kullanicilar = User::where('ogretmen_id', auth()->user()->id)->get(['id', 'name']);
-        return view('dashboard', compact(['quizzes', 'userMessages', 'yeniler', 'kullanicilar']));
+        $gidenMesajlar = Message::where('gonderen_id', auth()->user()->id)->join('users', 'users.id', '=', 'messages.alici_id')->orderBy('id', 'desc')->get([
+            'messages.id',
+            'messages.baslik',
+            'messages.mesaj',
+            'messages.okundu_bilgisi',
+            'messages.created_at',
+            'users.name'
+        ]);
+        return view('dashboard', compact(['quizzes', 'userMessages', 'yeniler', 'kullanicilar', 'gidenMesajlar']));
     }
 
     public function quizDetail($slug)
