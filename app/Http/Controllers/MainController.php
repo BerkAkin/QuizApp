@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Exception;
 use Illuminate\Http\Request;
+use App\Http\Requests\MesajRequest;
 use App\Models\Quiz;
 use App\Models\Answer;
 use App\Models\Result;
@@ -85,7 +86,7 @@ class MainController extends Controller
         return redirect()->back();
     }
 
-    public function mesajGonder(Request $request)
+    public function mesajGonder(MesajRequest $request)
     {
         try {
             if (auth()->user()->type == "admin") {
