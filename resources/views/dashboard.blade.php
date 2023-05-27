@@ -45,64 +45,112 @@
         border-radius: 5px;
         }
 
+
+        .nav-tabs .nav-item .nav-link {
+            background-color: #ffc107;
+           border: none;
+            color: #000000;
+            margin-left: 10px;
+            }
+
+            .nav-tabs .nav-item .nav-link.active {
+            background-color: #ffc107;
+           border: none;
+            }
+
+            .tab-content {
+            margin-top:10px;
+           border: none;
+            
+            }
+
+            .tab-content .tab-pane {
+           border: none;
+            background-color: #FFF;
+            }
     </style>
+
+
+
+
 @if(auth()->user()->type=='admin')
     <div class="row">
 
-        <div class="col-md-12">
-            <h5 class="display-6 text-center">Mesajlar</h5>
-            <hr>
-            <div class="card" style="width: 100%;">
-                @if($yeniler=="0")
-                <div class="card-header h6 text-danger fw-bold ">
-                    <span class="d-inline-block mt-2">Yeni Mesajınız Yok</span>
-                    @else
-                    <div class="card-header h6 text-success fw-bold">
-                        <span class="border border-danger d-inline-block mt-2"> {{$yeniler}} Yeni Mesajınız Var !</span>
-                    @endif
-                    <a data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="float-end btn-sm btn btn-warning fw-bold"><i class="fa-solid fa-pencil"></i></a>
-                </div>
+        <div class="col-md-12 ">
 
-                <div style="max-height: 600px; overflow-y:scroll">
-                @foreach($userMessages as $item)
-                <div class="accordion bg-light" style="margin: 0.5px" id="accordionExample">
-                    <div class="accordion-item  border-bottom-0 border-start-0 border-end-0 rounded-0">
-                        <h2 class="accordion-header" id="headingOne">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{$item->id}}" aria-expanded="true" aria-controls="collapse{{$item->id}}">
-                                <span class=" w-100  fw-bold text-capitalize @if($item->okundu_bilgisi==1) text-dark @else text-success @endif">{{Str::limit($item->baslik,25)}}
-                                    @if($item->okundu_bilgisi==0)<span class="float-end badge bg-success rounded-pill"> Yeni</span> @endif 
-
-                                </span>          
-                            </button>
-                        </h2>
-                        
-                        <div id="collapse{{$item->id}}" class="accordion-collapse collapse " aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <div class="text-muted">{{$item->mesaj}}</div>
-                                <hr>
-                                <div>
-                                    <div class=" badge mt-3 ms-0 bg-info rounded-pill text-dark">Gönderen: {{$item->name}}</div>
-                                    <div class="float-end badge mt-3 ms-0 bg-warning rounded-pill text-dark">{{$item->created_at->diffForHumans()}}</div>
-                                </div>
-                                
-                                @if($item->okundu_bilgisi==0)
-                                <a href="{{route('okundu', $item->id)}}" class="mt-4 btn btn-sm btn-success w-100 fw-bold"><i class="fa-regular fa-envelope-open"></i> Okundu Olarak İşaretle</a>
+                <div>
+                    <ul class="nav nav-tabs border-warning" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active fw-bold" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Gelen Mesajlar  
+                                @if($yeniler!="0")
+                                <span class="badge bg-success rounded-pill"> {{$yeniler}}</span>
                                 @endif
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link fw-bold" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Gönderilmiş Mesajlar</button>
+                        </li>
+                        
+                        <li class="nav-item ml-auto mr-5">
+                            @if($yeniler=="0")
+                                <div class="card-header h6 text-danger fw-bold ">
+                                <span class="d-inline-block mt-2">Yeni Gelen Mesajınız Yok</span>
+                            @else
+                                <div class="card-header h6 text-success fw-bold">
+                                <span class="d-inline-block mt-2"> {{$yeniler}} Yeni Mesajınız Var !</span>
+                            @endif
+                                </div>
+                        </li>
+                        <li class="nav-item "> <a data-bs-toggle="modal" data-bs-target="#staticBackdrop" class=" btn btn-warning fw-bold"><i class="fa-solid fa-pencil"></i></a></li>
+                    </ul>
+                </div>
+            
+            <div class="tab-content " id="myTabContent">
+                <div class="tab-pane fade show active " id="home" role="tabpanel" aria-labelledby="home-tab">
+                    
+            <!--MESAJLAR BAŞLANGIÇ-->
+                <div class="card border rounded-0 " style="width: 100%;">
+                   
+                    <div style="max-height: 600px; overflow-y:scroll">
+                        @foreach($userMessages as $item)
+                            <div class="accordion bg-light" style="margin: 0.5px" id="accordionExample">
+                                <div class="accordion-item  border-bottom-0 border-start-0 border-end-0 rounded-0">
+                                    <h2 class="accordion-header" id="headingOne">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{$item->id}}" aria-expanded="true" aria-controls="collapse{{$item->id}}">
+                                            <span class=" w-100  fw-bold text-capitalize @if($item->okundu_bilgisi==1) text-dark @else text-success @endif">{{Str::limit($item->baslik,25)}}
+                                                @if($item->okundu_bilgisi==0)<span class="float-end badge bg-success rounded-pill"> Yeni</span> @endif 
+
+                                            </span>          
+                                        </button>
+                                    </h2>
+                                    
+                                    <div id="collapse{{$item->id}}" class="accordion-collapse collapse " aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            <div class="text-muted">{{$item->mesaj}}</div>
+                                            <hr>
+                                            <div>
+                                                <div class=" badge mt-3 ms-0 bg-info rounded-pill text-dark">Gönderen: {{$item->name}}</div>
+                                                <div class="float-end badge mt-3 ms-0 bg-warning rounded-pill text-dark">{{$item->created_at->diffForHumans()}}</div>
+                                            </div>
+                                            
+                                            @if($item->okundu_bilgisi==0)
+                                                <a href="{{route('okundu', $item->id)}}" class="mt-4 btn btn-sm btn-success w-100 fw-bold"><i class="fa-regular fa-envelope-open"></i> Okundu Olarak İşaretle</a>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
-            @endforeach
+            <!--MESAJLAR BİTİŞ-->
                 </div>
-                </div>
+                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">gidenler</div>
             </div>
-        </div>
 
-
-
-
+            </div>
     </div>
-    @else
+@else
     <div class="row">
         <div class="col-md-7">
             <h5 class="display-6">Sınavlar</h5>
