@@ -10,11 +10,54 @@ use App\Models\Answer;
 use App\Models\Result;
 use App\Models\Message;
 use App\Models\User;
+use App\Charts\TotalChart;
 
 class MainController extends Controller
 {
     public function Dashboard()
     {
+
+        $dogrularim = Result::where('user_id', auth()->user()->id)->sum('correct');
+        $yanlislarim = Result::where('user_id', auth()->user()->id)->sum('wrong');
+
+
+        $chart = new TotalChart('Toplam Doğru Yanlış', true, true);
+        $chart->labels(['Doğru', 'Yanlış']);
+        $dataset = $chart->dataset('total', 'doughnut', [$dogrularim, $yanlislarim]);
+        $dataset->backgroundColor(collect(['#77dd77', '#ff6961',]));
+        $dataset->color(collect(['#77dd77', '#ff6961']));
+
+        $sonuclarim = Result::where('user_id', auth()->user()->id)->join('quizzes', 'quizzes.id', '=', 'results.quiz_id')->get(['quizzes.title', 'results.score', 'results.correct', 'results.wrong']);
+
+        $basliklar = $sonuclarim->pluck('title');
+
+        $chart2 = new TotalChart('Sınav Puanları', true, true);
+        $chart2->labels($basliklar);
+        $dataset2 = $chart2->dataset('Sonuç', 'line', $sonuclarim->pluck('score'));
+        $dataset2->color('#8BC6FC');
+
+        $chart3 = new TotalChart('Sınavlardaki Doğru Sayısı', true, false);
+        $chart3->labels($basliklar);
+        $dataset3 = $chart3->dataset('Sonuç', 'bar', $sonuclarim->pluck('correct'));
+        $dataset3->backgroundColor('#77dd77');
+        $dataset3->color('#77dd77');
+
+        $chart4 = new TotalChart('Sınavlardaki Yanlış Sayısı', true, false);
+        $chart4->labels($basliklar);
+        $dataset4 = $chart4->dataset('Sonuç', 'bar', $sonuclarim->pluck('wrong'));
+        $dataset4->backgroundColor('#C70039');
+        $dataset4->color('#C70039');
+
+
+
+
+
+
+
+
+
+
+
 
         $quizzes = Quiz::where('status', '=', 'published')->where('sahip', '=', auth()->user()->ogretmen_id)->WithCount('questions')->paginate(5);
         $userMessages = Message::where('alici_id', auth()->user()->id)->join('users', 'users.id', '=', 'messages.gonderen_id')->orderBy('id', 'desc')->get([
@@ -35,7 +78,7 @@ class MainController extends Controller
             'messages.created_at',
             'users.name'
         ]);
-        return view('dashboard', compact(['quizzes', 'userMessages', 'yeniler', 'kullanicilar', 'gidenMesajlar']));
+        return view('dashboard', compact(['quizzes', 'userMessages', 'yeniler', 'kullanicilar', 'gidenMesajlar', 'chart', 'chart2', 'chart3', 'chart4']));
     }
 
     public function quizDetail($slug)
