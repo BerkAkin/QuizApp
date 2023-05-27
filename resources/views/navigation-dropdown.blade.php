@@ -42,7 +42,7 @@
                     </div>
                 @endif
 
-                @if(auth()->user()->type!='admin')
+                @if(auth()->user()->type=='user')
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-jet-nav-link href="{{ route('quizzes.index') }}" :active="request()->routeIs('dashboard')">
                             {{ __('Dashboard') }}
@@ -53,8 +53,16 @@
                             {{ __('Öğretmenler') }}
                         </x-jet-nav-link>
                     </div>
-
                 @endif
+
+                @if(auth()->user()->type=='ustYonetici')
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-jet-nav-link href="{{ route('quizzes.index') }}" :active="request()->routeIs('dashboard')">
+                            {{ __('Dashboard') }}
+                        </x-jet-nav-link>
+                    </div>
+                @endif
+
             </div>
 
             <!-- Settings Dropdown -->
@@ -217,7 +225,7 @@
                     {{ __('Mesajlar') }}
                 </x-jet-responsive-nav-link>
             @endif
-            @if(auth()->user()->type!='admin')
+            @if(auth()->user()->type=='user')
                 <x-jet-responsive-nav-link href="{{ route('ogretmen.index') }}" :active="request()->routeIs('ogretmen.index')">
                     {{ __('Öğretmenler') }}
                 </x-jet-responsive-nav-link>            
@@ -225,6 +233,11 @@
                     {{ __('Dashboard') }}
                 </x-jet-responsive-nav-link>
             @endif
+            @if(auth()->user()->type=='ustYonetici')        
+            <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                {{ __('Dashboard') }}
+            </x-jet-responsive-nav-link>
+        @endif
         </div>
 
         <!-- Responsive Settings Options -->

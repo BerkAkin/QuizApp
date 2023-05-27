@@ -48,17 +48,6 @@ class MainController extends Controller
         $dataset4->backgroundColor('#C70039');
         $dataset4->color('#C70039');
 
-
-
-
-
-
-
-
-
-
-
-
         $quizzes = Quiz::where('status', '=', 'published')->where('sahip', '=', auth()->user()->ogretmen_id)->WithCount('questions')->paginate(5);
         $userMessages = Message::where('alici_id', auth()->user()->id)->join('users', 'users.id', '=', 'messages.gonderen_id')->orderBy('id', 'desc')->get([
             'messages.id',
@@ -70,6 +59,8 @@ class MainController extends Controller
         ]);
         $yeniler = Message::where('okundu_bilgisi', "0")->where('alici_id', auth()->user()->id)->get()->count();
         $kullanicilar = User::where('ogretmen_id', auth()->user()->id)->get(['id', 'name']);
+        $ogretmenler = User::where('type', '!=', 'ustYonetici')->get(['name', 'email', 'id']);
+        $yoneticiler = User::where('type', '=', 'ustYonetici')->get(['name', 'email', 'id']);
         $gidenMesajlar = Message::where('gonderen_id', auth()->user()->id)->join('users', 'users.id', '=', 'messages.alici_id')->orderBy('id', 'desc')->get([
             'messages.id',
             'messages.baslik',
@@ -78,7 +69,7 @@ class MainController extends Controller
             'messages.created_at',
             'users.name'
         ]);
-        return view('dashboard', compact(['quizzes', 'userMessages', 'yeniler', 'kullanicilar', 'gidenMesajlar', 'chart', 'chart2', 'chart3', 'chart4']));
+        return view('dashboard', compact(['quizzes', 'userMessages', 'yeniler', 'kullanicilar', 'ogretmenler', 'yoneticiler', 'gidenMesajlar', 'chart', 'chart2', 'chart3', 'chart4']));
     }
 
     public function quizDetail($slug)
@@ -149,10 +140,27 @@ class MainController extends Controller
                     'mesaj' => $request->mesaj
                 ]);
                 return redirect()->back()->withSuccess('Mesaj Başarıyla Gönderildi');
+            } else if (auth()->user()->type == "user") {
+                if ($request->filled('adminId')) {
+                    Message::create([
+                        'gonderen_id' => auth()->user()->id,
+                        'alici_id' => $request->adminId,
+                        'baslik' => $request->baslik,
+                        'mesaj' => $request->mesaj
+                    ]);
+                } else {
+                    Message::create([
+                        'gonderen_id' => auth()->user()->id,
+                        'alici_id' => auth()->user()->ogretmen_id,
+                        'baslik' => $request->baslik,
+                        'mesaj' => $request->mesaj
+                    ]);
+                }
+                return redirect()->back()->withSuccess('Mesaj Başarıyla Gönderildi');
             } else {
                 Message::create([
                     'gonderen_id' => auth()->user()->id,
-                    'alici_id' => auth()->user()->ogretmen_id,
+                    'alici_id' => $request->ogrenci,
                     'baslik' => $request->baslik,
                     'mesaj' => $request->mesaj
                 ]);
