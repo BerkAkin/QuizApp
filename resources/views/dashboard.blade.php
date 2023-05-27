@@ -181,17 +181,17 @@
             @csrf
             <div class="input-group mb-3">
                 <span class="input-group-text bg-warning" id="basic-addon1"><i class="fa-regular fa-comment-dots text-lg"></i></span>
-                <input name="baslik" type="text" class="form-control" placeholder="Konu" aria-label="Username" aria-describedby="basic-addon1">
+                <input minlength="10" maxlength="40" required name="baslik" type="text" class="form-control" placeholder="Konu" aria-label="Username" aria-describedby="basic-addon1">
               </div>
               <div class="input-group">
                 <span class="input-group-text bg-warning"><i class="fa-regular fa-message text-lg"></i></span>
-                <textarea name="mesaj" rows="6" style="resize: none;" placeholder="İçerik" class="form-control" aria-label="With textarea"></textarea>
+                <textarea minlength="10" maxlength="300" required name="mesaj" rows="6" style="resize: none;" placeholder="İçerik" class="form-control" aria-label="With textarea"></textarea>
               </div>
               @if(auth()->user()->type=="admin")
 
                 <div class="input-group mt-3">
                     <label class="input-group-text bg-warning" for=""><i class="fa-regular fa-user text-lg"></i></label>
-                    <select name="ogrenci"  class="form-select" aria-label="Filter select" style="border-color: rgb(192, 191, 191); box-shadow: none;">
+                    <select required name="ogrenci"  class="form-select" aria-label="Filter select" style="border-color: rgb(192, 191, 191); box-shadow: none;">
                     <option selected></option>
 
                     @foreach($kullanicilar as $kullanici)
