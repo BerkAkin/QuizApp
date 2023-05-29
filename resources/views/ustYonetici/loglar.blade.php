@@ -7,15 +7,15 @@
     <div class="d-flex align-items-start ">
 
         <div class="flex-column me-3" id="v-pills-tab"  aria-orientation="vertical">
-          <a href="{{ route('loglar.yonetici') }}" class="btn btn-warning mt-3 fw-bold btn-lg d-block" style="width:8rem;">Yönetici</a>
-          <a href="{{ route('loglar.dashboard') }}" class="btn btn-success mt-3 fw-bold btn-lg d-block d-block" style="width:8rem;">Dashboard</a>
-          <a href="{{ route('loglar.mesajlar') }}" class="btn btn-success mt-3 fw-bold btn-lg " style="width:8rem;">Mesajlar</a>
-          <a href="{{ route('loglar.sinavlar') }}" class="btn btn-danger mt-3 fw-bold btn-lg d-block" style="width:8rem;">Sınavlar</a>
-          <a href="{{ route('loglar.notlar') }}" class="btn btn-danger mt-3 fw-bold btn-lg d-block" style="width:8rem;">Notlar</a>
-          <a href="{{ route('loglar.kayitlar') }}" class="btn btn-info mt-3 fw-bold btn-lg d-block" style="width:8rem;">Kayıt</a>
-          <a href="{{ route('loglar.ogrKabul') }}" class="btn btn-info mt-3 fw-bold btn-lg d-block" style="width:8rem;">Öğr Onay</a>
-          <a href="{{ route('loglar.ogrSilme') }}" class="btn btn-info mt-3 fw-bold btn-lg d-block" style="width:8rem;">Öğr Silme</a>
-          <a href="{{ route('loglar.sinavGirilme') }}" class="btn btn-primary mt-3 fw-bold btn-lg d-block" style="width:8rem;">Sınav Gir</a>
+          <a href="{{ route('loglar.tum','yonetici') }}" class="btn btn-warning mt-3 fw-bold btn-lg d-block" style="width:8rem;">Yönetici</a>
+          <a href="{{ route('loglar.tum','dashboard') }}" class="btn btn-warning mt-3 fw-bold btn-lg d-block" style="width:8rem;">Dashboard</a>
+          <a href="{{ route('loglar.tum','mesajlar') }}" class="btn btn-success mt-3 fw-bold btn-lg d-block d-block" style="width:8rem;">Mesajlar</a>
+          <a href="{{ route('loglar.tum','sinavlar') }}" class="btn btn-danger mt-3 fw-bold btn-lg d-block" style="width:8rem;">Sınavlar</a>
+          <a href="{{ route('loglar.tum','notlar') }}" class="btn btn-danger mt-3 fw-bold btn-lg d-block" style="width:8rem;">Notlar</a>
+          <a href="{{ route('loglar.tum','kayitlar') }}" class="btn btn-info mt-3 fw-bold btn-lg d-block" style="width:8rem;">Kayıt</a>
+          <a href="{{ route('loglar.tum','ogrKabul') }}" class="btn btn-info mt-3 fw-bold btn-lg d-block" style="width:8rem;">Öğr Onay</a>
+          <a href="{{ route('loglar.tum','ogrSilme') }}" class="btn btn-info mt-3 fw-bold btn-lg d-block" style="width:8rem;">Öğr Silme</a>
+          <a href="{{ route('loglar.tum','sinavGirilme') }}" class="btn btn-primary mt-3 fw-bold btn-lg d-block" style="width:8rem;">Sınav Gir</a>
         </div>
 
         <div class="tab-content mt-3 w-100">
