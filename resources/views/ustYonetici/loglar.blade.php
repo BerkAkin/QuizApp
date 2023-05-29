@@ -16,6 +16,7 @@
           <a href="{{ route('loglar.tum','ogrKabul') }}" class="btn btn-info mt-3 fw-bold btn-lg d-block" style="width:8rem;">Öğr Onay</a>
           <a href="{{ route('loglar.tum','ogrSilme') }}" class="btn btn-info mt-3 fw-bold btn-lg d-block" style="width:8rem;">Öğr Silme</a>
           <a href="{{ route('loglar.tum','sinavGirilme') }}" class="btn btn-primary mt-3 fw-bold btn-lg d-block" style="width:8rem;">Sınav Gir</a>
+          <a href="{{ route('loglar.tum','tipDegistir') }}" class="btn btn-dark mt-3 fw-bold btn-lg d-block" style="width:8rem;">Tipler</a>
         </div>
 
         <div class="tab-content mt-3 w-100">
