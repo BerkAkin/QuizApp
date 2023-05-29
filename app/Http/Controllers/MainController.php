@@ -16,6 +16,7 @@ class MainController extends Controller
 {
     public function Dashboard()
     {
+        parent::Logla('Dashboard', 'Dashboard Ekranına Girildi');
 
         $dogrularim = Result::where('user_id', auth()->user()->id)->sum('correct');
         $yanlislarim = Result::where('user_id', auth()->user()->id)->sum('wrong');
@@ -80,12 +81,14 @@ class MainController extends Controller
 
     public function quiz($slug)
     {
+        parent::Logla('Sınava Girildi', 'Sınava Girildi');
         $quiz = Quiz::whereSlug($slug)->with('questions')->first();
         return view('quiz', compact('quiz'));
     }
 
     public function result(Request $request, $slug)
     {
+
 
         $quiz = Quiz::with('questions')->whereSlug($slug)->first() ?? abort(404, 'Sınav Mevcut Değil');
         $kayitVarMi = Result::where('user_id', '=', auth()->user()->id)->where('quiz_id', $quiz->id)->value('quiz_id');
@@ -115,8 +118,12 @@ class MainController extends Controller
 
             ]);
 
+            parent::Logla('Sınava Girildi', 'Sınav Tamamlandı (Başarılı)');
             return redirect()->route('quiz.detail', $quiz->slug)->withSuccess('Sınav tamamlandı');
+
         } else {
+
+            parent::Logla('Sınava Girildi', 'Sınav Tamamlandı (Başarısız)');
             return redirect()->route('quiz.detail', $quiz->slug)->withErrors('Sınav süresi dolduğu veya daha önce katılım sağlandığı için sonuçlar kaydedilmedi');
         }
     }
@@ -139,6 +146,10 @@ class MainController extends Controller
                     'baslik' => $request->baslik,
                     'mesaj' => $request->mesaj
                 ]);
+
+
+                parent::Logla('Mesajlar', 'Mesaj Gönderildi (Öğretmen->Öğrenci)');
+
                 return redirect()->back()->withSuccess('Mesaj Başarıyla Gönderildi');
             } else if (auth()->user()->type == "user") {
                 if ($request->filled('adminId')) {
@@ -148,6 +159,9 @@ class MainController extends Controller
                         'baslik' => $request->baslik,
                         'mesaj' => $request->mesaj
                     ]);
+
+                    parent::Logla('Mesajlar', 'Mesaj Gönderildi (Öğrenci->Admin)');
+
                 } else {
                     Message::create([
                         'gonderen_id' => auth()->user()->id,
@@ -155,6 +169,9 @@ class MainController extends Controller
                         'baslik' => $request->baslik,
                         'mesaj' => $request->mesaj
                     ]);
+
+                    parent::Logla('Mesajlar', 'Mesaj Gönderildi (Öğrenci->Öğretmen)');
+
                 }
                 return redirect()->back()->withSuccess('Mesaj Başarıyla Gönderildi');
             } else {
@@ -164,6 +181,10 @@ class MainController extends Controller
                     'baslik' => $request->baslik,
                     'mesaj' => $request->mesaj
                 ]);
+
+                parent::Logla('Mesajlar', 'Mesaj Gönderildi (Admin->Öğrenci)');
+
+
                 return redirect()->back()->withSuccess('Mesaj Başarıyla Gönderildi');
             }
         } catch (\Exception $e) {
@@ -178,8 +199,12 @@ class MainController extends Controller
     {
         if ($type == 'user') {
             User::where('id', '=', $id)->update(['type' => "admin"]);
+            parent::Logla('Tip Güncelleme', 'Tip Değiştirildi (Öğrenci->Öğretmen)');
+
         } else {
             User::where('id', '=', $id)->update(['type' => "user"]);
+            parent::Logla('Tip Güncelleme', 'Tip Değiştirildi (Öğretmen->Öğrenci)');
+
         }
 
         return redirect()->back();

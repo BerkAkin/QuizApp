@@ -39,6 +39,8 @@ class OgretmenController extends Controller
     public function store(Request $request)
     {
         ogrenci::create($request->post());
+
+        parent::Logla('Kayıt', 'Öğretmene Kayıt İsteği Sunuldu');
         return redirect()->route('dashboard')->withSuccess('Kayıt İsteği Öğretmen Onayına Başarıyla Sunuldu');
 
     }
