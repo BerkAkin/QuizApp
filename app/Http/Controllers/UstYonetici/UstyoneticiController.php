@@ -8,19 +8,10 @@ use App\Models\Log;
 
 class UstyoneticiController extends Controller
 {
-    public function loglarıGoster()
-    {
-        parent::Logla('Yönetici', 'Yönetici Log Sayfasına Girildi');
-        return view('ustYonetici.loglar');
-    }
 
     public function LogTumu($tip)
     {
         switch ($tip) {
-            case 'yonetici':
-                $log = Log::where('IslemTuru', 'Yönetici')->get();
-                return view('ustYonetici.loglar', compact('log'));
-                break;
             case 'dashboard':
                 $log = Log::where('IslemTuru', 'Dashboard')->get();
                 return view('ustYonetici.loglar', compact('log'));

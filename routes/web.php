@@ -40,6 +40,5 @@ Route::group(['middleware' => ['auth', 'isAdmin'], 'prefix' => 'admin'], functio
 
 Route::group(['middleware' => ['auth', 'ustYonetici']], function () {
     Route::get('dondur/{id}/{type}', [MainController::class, 'tipGuncelle'])->name('tipDegistir');
-    Route::get('loglar', [UstyoneticiController::class, 'loglarıGoster'])->name('sistemLoglari');    
     Route::get('loglar/{tip}', [UstyoneticiController::class, 'LogTumu'])->name('loglar.tum');
 });
