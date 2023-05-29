@@ -7,7 +7,6 @@
     <div class="d-flex align-items-start ">
 
         <div class="flex-column me-3" id="v-pills-tab"  aria-orientation="vertical">
-          <a href="{{ route('loglar.tum','yonetici') }}" class="btn btn-warning mt-3 fw-bold btn-lg d-block" style="width:8rem;">Yönetici</a>
           <a href="{{ route('loglar.tum','dashboard') }}" class="btn btn-warning mt-3 fw-bold btn-lg d-block" style="width:8rem;">Dashboard</a>
           <a href="{{ route('loglar.tum','mesajlar') }}" class="btn btn-success mt-3 fw-bold btn-lg d-block d-block" style="width:8rem;">Mesajlar</a>
           <a href="{{ route('loglar.tum','sinavlar') }}" class="btn btn-danger mt-3 fw-bold btn-lg d-block" style="width:8rem;">Sınavlar</a>

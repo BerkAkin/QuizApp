@@ -62,7 +62,7 @@
                         </x-jet-nav-link>
                     </div>
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-jet-nav-link href="{{ route('sistemLoglari') }}" :active="request()->routeIs('sistemLoglari')">
+                        <x-jet-nav-link href="{{ route('loglar.tum', 'dashboard') }}" :active="request()->routeIs('loglar.tum')">
                             {{ __('Sistem Logları') }}
                         </x-jet-nav-link>
                     </div>
@@ -242,7 +242,7 @@
             <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-jet-responsive-nav-link>
-            <x-jet-responsive-nav-link href="{{ route('sistemLoglari') }}" :active="request()->routeIs('sistemLoglari')">
+            <x-jet-responsive-nav-link href="{{ route('loglar.tum', 'dashboard') }}" :active="request()->routeIs('loglar.tum')">
                 {{ __('Sistem Logları') }}
             </x-jet-responsive-nav-link>
         @endif
