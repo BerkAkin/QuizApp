@@ -12,11 +12,16 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function Logla($tur, $islem)
+    public function Logla($tur, $islem, $ekParam = "")
     {
         $log = new Log;
         $log->IslemTuru = $tur;
-        $log->Islem = $islem;
+        if ($ekParam == "") {
+            $log->Islem = $islem;
+        } else {
+            $log->Islem = $islem . " (" . $ekParam . ")";
+        }
+
         $log->islemiYapan = auth()->user()->name;
         $log->IpAdresi = request()->ip();
         $log->save();
