@@ -72,7 +72,8 @@ class ogrenciler extends Controller
     public function update(Request $request, $id)
     {
         User::where('id', '=', $id)->update(['ogretmen_id' => null]);
-        parent::Logla('Öğrenci Silme','Öğrenci Kopartıldı');
+        $ogr = User::where('id', $id)->get('name');
+        parent::Logla('Öğrenci Silme', 'Öğrenci Kopartıldı', $ogr);
 
         return redirect()->route('ogrenciler.index')->withSuccess('Öğrenci Silme Başarılı');
 

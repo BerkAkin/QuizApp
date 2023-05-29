@@ -53,6 +53,10 @@ class UstyoneticiController extends Controller
                 $log = Log::where('IslemTuru', 'Sınava Girildi')->get();
                 return view('ustYonetici.loglar', compact('log'));
                 break;
+            case 'tipDegistir':
+                $log = Log::where('IslemTuru', 'Tip Güncelleme')->get();
+                return view('ustYonetici.loglar', compact('log'));
+                break;
 
         }
     }

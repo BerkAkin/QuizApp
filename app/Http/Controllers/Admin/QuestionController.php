@@ -78,7 +78,7 @@ class QuestionController extends Controller
             ]);
         }
         Quiz::find($quiz_id)->questions()->whereId($question_id)->first()->update($request->post());
-        parent::Logla('Sorular', 'Sınava Sorusu Düzenlendi');
+        parent::Logla('Sorular', 'Sınav Sorusu Düzenlendi');
         return redirect()->route('questions.index', $quiz_id)->withSuccess('Soru Başarıyla Güncellendi');
     }
 
@@ -88,7 +88,7 @@ class QuestionController extends Controller
     public function destroy($quiz_id, $question_id)
     {
         Quiz::find($quiz_id)->questions()->whereId($question_id)->delete();
-        parent::Logla('Sorular', 'Sınava Sorusu Silindi');
+        parent::Logla('Sorular', 'Sınav Sorusu Silindi');
         return redirect()->route('questions.index', $quiz_id)->withSuccess('Soru Silme Başarılı');
     }
 }

@@ -76,9 +76,10 @@ class OgrenciKabul extends Controller
     {
         $ogretmen_id = auth()->user()->id;
         User::where('id', '=', $id)->update(['ogretmen_id' => $ogretmen_id]);
+        $ogr = User::where('id', $id)->get('name');
         $ogrenciNo = ogrenci::where('ogrenci_id', '=', $id)->first()->get();
         $this->sil($ogrenciNo->first()->id);
-        parent::Logla('Öğrenci Kabul', 'Öğrenci Kabul Edildi');
+        parent::Logla('Öğrenci Kabul', 'Öğrenci Kabul Edildi', $ogr);
         return redirect()->route('ogrenciKabul.index')->withSuccess('Öğrenci Kabul Edildi');
 
     }
