@@ -5,6 +5,7 @@ namespace App\Http\Controllers\UstYonetici;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Log;
+use App\Models\Setting;
 
 class UstyoneticiController extends Controller
 {

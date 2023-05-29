@@ -16,10 +16,11 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             UserSeeder::class,
-            QuizSeeder::Class,
+            QuizSeeder::class,
             QuestionSeeder::class,
             AnswerSeeder::class,
             ResultSeeder::class,
+            SettingsSeeder::class
         ]);
     }
 }
