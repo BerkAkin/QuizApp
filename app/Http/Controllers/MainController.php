@@ -81,7 +81,7 @@ class MainController extends Controller
 
     public function quiz($slug)
     {
-        parent::Logla('Sınava Girildi', 'Sınava Girildi');
+        parent::Logla('Sınava Girildi', 'Sınava Girildi', $slug);
         $quiz = Quiz::whereSlug($slug)->with('questions')->first();
         return view('quiz', compact('quiz'));
     }
@@ -118,12 +118,12 @@ class MainController extends Controller
 
             ]);
 
-            parent::Logla('Sınava Girildi', 'Sınav Tamamlandı (Başarılı)');
+            parent::Logla('Sınava Girildi', 'Sınav Tamamlandı (Başarılı)', $quiz->title);
             return redirect()->route('quiz.detail', $quiz->slug)->withSuccess('Sınav tamamlandı');
 
         } else {
 
-            parent::Logla('Sınava Girildi', 'Sınav Tamamlandı (Başarısız)');
+            parent::Logla('Sınava Girildi', 'Sınav Tamamlandı (Başarısız)', $quiz->title);
             return redirect()->route('quiz.detail', $quiz->slug)->withErrors('Sınav süresi dolduğu veya daha önce katılım sağlandığı için sonuçlar kaydedilmedi');
         }
     }
@@ -197,13 +197,15 @@ class MainController extends Controller
 
     public function tipGuncelle($id, $type)
     {
+        $userdat = User::where('id', $id)->pluck('name');
         if ($type == 'user') {
             User::where('id', '=', $id)->update(['type' => "admin"]);
-            parent::Logla('Tip Güncelleme', 'Tip Değiştirildi (Öğrenci->Öğretmen)');
+
+            parent::Logla('Tip Güncelleme', 'Tip Değiştirildi (Öğrenci->Öğretmen)', $userdat[0]);
 
         } else {
             User::where('id', '=', $id)->update(['type' => "user"]);
-            parent::Logla('Tip Güncelleme', 'Tip Değiştirildi (Öğretmen->Öğrenci)');
+            parent::Logla('Tip Güncelleme', 'Tip Değiştirildi (Öğretmen->Öğrenci)', $userdat[0]);
 
         }
 
