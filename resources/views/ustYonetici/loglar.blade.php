@@ -1,7 +1,12 @@
 <x-app-layout>
     <x-slot name="header">Sistem Logları</x-slot>
 
-
+<div>
+  <div class="form-check form-switch">
+    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked">
+    <label class="form-check-label fw-bold" for="flexSwitchCheckChecked">Log Sistemi(Mevcut değil)</label>
+  </div>
+</div>
 
 
     <div class="d-flex align-items-start ">
