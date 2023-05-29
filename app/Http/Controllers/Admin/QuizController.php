@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Quiz;
 use App\Http\Requests\QuizCreateRequest;
 use App\Http\Requests\QuizUpdateRequest;
@@ -32,6 +31,8 @@ class QuizController extends Controller
         }
 
         $quizzes = $quizzes->paginate(5);
+        parent::Logla('Sınavlar', 'Sınavlar Sayfasına Girildi');
+
         return view('admin.quiz.list', compact('quizzes'));
     }
 
@@ -42,6 +43,7 @@ class QuizController extends Controller
      */
     public function create()
     {
+
         $sahip = auth()->user()->id;
         return view('admin.quiz.create', ['sahip' => $sahip]);
 
@@ -60,8 +62,10 @@ class QuizController extends Controller
 
         if ($request->post('sahip') == auth()->user()->id) {
             Quiz::create($request->post());
+            parent::Logla('Sınavlar', 'Sınav Oluşturma Başarılı');
             return redirect()->route('quizzes.index')->withSuccess('Sınav Başarıyla Oluşturuldu');
         } else {
+            parent::Logla('Sınavlar', 'Sınav Oluşturma Başarısız');
             return redirect()->route('quizzes.index')->withErrors('Sınav Oluşturma Başarısız, lütfen kendi hesabınıza sınav oluşturun');
         }
     }
@@ -99,6 +103,7 @@ class QuizController extends Controller
     public function update(QuizUpdateRequest $request, $id)
     {
         Quiz::find($id)->update($request->except(['_method', '_token']));
+        parent::Logla('Sınavlar', 'Sınav Düzenlendi');
         return redirect()->route('quizzes.index')->withSuccess('Sınav Güncelleme Başarılı');
     }
 
@@ -112,6 +117,8 @@ class QuizController extends Controller
     {
         $quiz = Quiz::find($id) ?? abort(404, 'Silinmek İstenen Sınav Mevcut Değil');
         $quiz->delete();
+        parent::Logla('Sınavlar', 'Sınav Silindi');
+
         return redirect()->route('quizzes.index')->withSuccess('Sınav Silme Başarılı');
     }
 }

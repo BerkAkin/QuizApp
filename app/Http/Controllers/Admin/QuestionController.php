@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Quiz;
 use App\Http\Requests\QuestionCreateRequest;
 use App\Http\Requests\QuestionUpdateRequest;
@@ -16,6 +15,8 @@ class QuestionController extends Controller
 
     public function index($id)
     {
+
+        parent::Logla('Sorular', 'Sınav Soruları Sayfasına Girildi');
         $quiz = Quiz::whereId($id)->with('questions')->first() ?? abort(404, 'Sınav Mevcut Değil');
         return view('admin.question.list', compact('quiz'));
     }
@@ -32,6 +33,7 @@ class QuestionController extends Controller
 
     public function store(QuestionCreateRequest $request, $id)
     {
+
         if ($request->hasFile('image')) {
             $dosyaAdi = Str::slug($request->question) . "." . $request->image->extension();
             $dosyaAdiYeni = 'uploads/' . $dosyaAdi;
@@ -41,6 +43,7 @@ class QuestionController extends Controller
             ]);
         }
         Quiz::find($id)->questions()->create($request->post());
+        parent::Logla('Sorular', 'Sınava Soru Oluşturuldu');
         return redirect()->route('questions.index', $id)->withSuccess('Soru Başarıyla Oluşturuldu');
     }
 
@@ -56,7 +59,6 @@ class QuestionController extends Controller
 
     public function edit($quiz_id, $question_id)
     {
-
         $question = Quiz::find($quiz_id)->questions()->whereId($question_id)->first() ?? abort(404, 'Sınav veya Soru Mevcut Değil');
         return view('admin.question.edit', compact('question'));
     }
@@ -66,6 +68,7 @@ class QuestionController extends Controller
 
     public function update(QuestionUpdateRequest $request, $quiz_id, $question_id)
     {
+
         if ($request->hasFile('image')) {
             $dosyaAdi = Str::slug($request->question) . "." . $request->image->extension();
             $dosyaAdiYeni = 'uploads/' . $dosyaAdi;
@@ -75,6 +78,7 @@ class QuestionController extends Controller
             ]);
         }
         Quiz::find($quiz_id)->questions()->whereId($question_id)->first()->update($request->post());
+        parent::Logla('Sorular', 'Sınava Sorusu Düzenlendi');
         return redirect()->route('questions.index', $quiz_id)->withSuccess('Soru Başarıyla Güncellendi');
     }
 
@@ -84,6 +88,7 @@ class QuestionController extends Controller
     public function destroy($quiz_id, $question_id)
     {
         Quiz::find($quiz_id)->questions()->whereId($question_id)->delete();
+        parent::Logla('Sorular', 'Sınava Sorusu Silindi');
         return redirect()->route('questions.index', $quiz_id)->withSuccess('Soru Silme Başarılı');
     }
 }

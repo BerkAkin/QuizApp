@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
 use App\Models\Quiz;
-use App\Models\Result;
 use Illuminate\Support\Facades\DB;
 
 class OgrenciNotlar extends Controller
@@ -27,6 +25,8 @@ class OgrenciNotlar extends Controller
             ->get(['name', 'title', 'score', 'email', 'profile_photo_path', 'correct', 'wrong', 'gereken_min_not']);
 
         $sinavlar = Quiz::where('sahip', '=', auth()->user()->id)->get(['id', 'title']);
+
+        parent::Logla('Notlar','Notlara Girildi');
         return view('admin.ogrenciNot.ogrenciNot', compact(['notlar', 'sinavlar']));
 
 
