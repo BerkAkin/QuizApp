@@ -40,15 +40,6 @@ Route::group(['middleware' => ['auth', 'isAdmin'], 'prefix' => 'admin'], functio
 
 Route::group(['middleware' => ['auth', 'ustYonetici']], function () {
     Route::get('dondur/{id}/{type}', [MainController::class, 'tipGuncelle'])->name('tipDegistir');
-    
-    Route::get('loglar', [UstyoneticiController::class, 'loglarıGoster'])->name('sistemLoglari');
-    Route::get('loglar/yonetici', [UstyoneticiController::class, 'LogYonetici'])->name('loglar.yonetici');
-    Route::get('loglar/dashboard', [UstyoneticiController::class, 'LogDashboard'])->name('loglar.dashboard');
-    Route::get('loglar/mesajlar', [UstyoneticiController::class, 'LogMesajlar'])->name('loglar.mesajlar');
-    Route::get('loglar/sinavlar', [UstyoneticiController::class, 'LogSinavlar'])->name('loglar.sinavlar');
-    Route::get('loglar/notlar', [UstyoneticiController::class, 'LogNotlar'])->name('loglar.notlar');
-    Route::get('loglar/kayitlar', [UstyoneticiController::class, 'LogKayitlar'])->name('loglar.kayitlar');
-    Route::get('loglar/ogrKabul', [UstyoneticiController::class, 'LogOgrKabul'])->name('loglar.ogrKabul');
-    Route::get('loglar/ogrSilme', [UstyoneticiController::class, 'LogOgrSilme'])->name('loglar.ogrSilme');
-    Route::get('loglar/sinavGirilme', [UstyoneticiController::class, 'LogSinavGirilme'])->name('loglar.sinavGirilme');
+    Route::get('loglar', [UstyoneticiController::class, 'loglarıGoster'])->name('sistemLoglari');    
+    Route::get('loglar/{tip}', [UstyoneticiController::class, 'LogTumu'])->name('loglar.tum');
 });
